@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calon AI — Operational systems for service businesses that already win</title>
+<link rel="stylesheet" href="styles/main.css">
+<link rel="icon" href="assets/calon-logo.png">
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react" src="tweaks-panel.jsx"></script>
+<script type="text/babel" data-presets="react" src="components/Nav.jsx"></script>
+<script type="text/babel" data-presets="react" src="components/Hero.jsx"></script>
+<script type="text/babel" data-presets="react" src="components/Problem.jsx"></script>
+<script type="text/babel" data-presets="react" src="components/Solution.jsx"></script>
+<script type="text/babel" data-presets="react" src="components/Proof.jsx"></script>
+<script type="text/babel" data-presets="react" src="components/RoadmapModal.jsx"></script>
+
+<script type="text/babel" data-presets="react">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "#4cc9f0",
+  "headlineStyle": "diagnostic",
+  "show3DStack": true,
+  "heroBackground": "grid"
+}/*EDITMODE-END*/;
+
+function App() {
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const openModal = React.useCallback(() => setModalOpen(true), []);
+  const closeModal = React.useCallback(() => setModalOpen(false), []);
+
+  // Intercept clicks on any anchor pointing to #diagnostic, and any button with data-open-roadmap
+  React.useEffect(() => {
+    const handler = (e) => {
+      const el = e.target.closest('a[href="#diagnostic"], [data-open-roadmap]');
+      if (el) {
+        e.preventDefault();
+        setModalOpen(true);
+      }
+    };
+    document.addEventListener('click', handler);
+    return () => document.removeEventListener('click', handler);
+  }, []);
+
+  // Apply accent color
+  React.useEffect(() => {
+    document.documentElement.style.setProperty('--accent', tweaks.accent);
+    // Derive hover/active
+    document.documentElement.style.setProperty('--accent-hover', tweaks.accent);
+  }, [tweaks.accent]);
+
+  // Heroes content based on style
+  const heroContent = {
+    diagnostic: {
+      h1: <>Most service businesses don't have a sales problem. They have an <em>operational</em> one.</>,
+      lead: "Calon builds the systems that recover the 40–60% of margin most £500k–£5m service firms quietly leak — without hiring more people, or buying software you won't use."
+    },
+    margin: {
+      h1: <>Margin <em>leaks</em> at every stage of your job.</>,
+      lead: "On 200 jobs a year, that's 50 hours of unbilled work, £100k of preventable overrun, and a founder still in the rota. Calon rebuilds the workflow — not the team."
+    },
+    workflow: {
+      h1: <>Six workflows quietly <em>control</em> your margin.</>,
+      lead: "We map them. Name the worst. Rebuild it around how your business actually works. £82k recovered on average. 14 weeks to handover. No software bought."
+    }
+  };
+
+  return (
+    <>
+      <Nav />
+      <Hero tweaks={tweaks} setTweak={setTweak} heroContent={heroContent[tweaks.headlineStyle]} show3D={tweaks.show3DStack} bgStyle={tweaks.heroBackground} />
+      <TrustStrip />
+      <Problem />
+      <Solution />
+      <Sectors />
+      <Proof />
+      <CTA />
+      <Footer />
+
+      <RoadmapModal open={modalOpen} onClose={closeModal} />
+
+      <TweaksPanel title="Tweaks">
+        <TweakSection title="Brand">
+          <TweakColor label="Accent color" value={tweaks.accent} onChange={(v) => setTweak('accent', v)} />
+        </TweakSection>
+        <TweakSection title="Hero">
+          <TweakSelect
+            label="Headline style"
+            value={tweaks.headlineStyle}
+            onChange={(v) => setTweak('headlineStyle', v)}
+            options={[
+              { value: 'diagnostic', label: 'Diagnostic — operational problem' },
+              { value: 'margin', label: 'Margin claim — leaks at every stage' },
+              { value: 'workflow', label: 'Workflow — six workflows' }
+            ]}
+          />
+          <TweakRadio
+            label="Background"
+            value={tweaks.heroBackground}
+            onChange={(v) => setTweak('heroBackground', v)}
+            options={[
+              { value: 'grid', label: 'Grid floor' },
+              { value: 'glow', label: 'Glow only' },
+              { value: 'flat', label: 'Flat' }
+            ]}
+          />
+          <TweakToggle label="Show 3D card stack" value={tweaks.show3DStack} onChange={(v) => setTweak('show3DStack', v)} />
+        </TweakSection>
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

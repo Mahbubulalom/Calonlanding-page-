@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Calon — Lead Magnet Document Kit</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../card-shell.css">
+<style>
+  body { margin: 0; }
+  .card-shell { padding-bottom: 96px; background: #e8e6df; }
+  .card-shell .card-header { border-bottom-color: #cfccc1; }
+
+  .stage {
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  /* The page itself — A4 working size at 96dpi */
+  .page {
+    width: 816px;
+    min-height: 1056px;
+    background: var(--paper-100);
+    box-shadow: var(--shadow-paper);
+    margin: 0 auto;
+    position: relative;
+    color: var(--type-body);
+    font-family: var(--font-sans);
+    overflow: hidden;
+  }
+  .page-meta {
+    position: absolute;
+    top: -28px;
+    left: 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--type-muted);
+  }
+
+  /* Header / footer */
+  .doc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px 64px 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--type-muted);
+  }
+  .doc-header .word {
+    color: var(--ink-900);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    font-size: 14px;
+    text-transform: none;
+    font-family: var(--font-sans);
+  }
+  .doc-header .word .mark {
+    width: 18px; height: 18px;
+    border-radius: 3px;
+    background: var(--signal-500);
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    color: var(--ink-1000);
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 700;
+  }
+  .doc-footer {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 24px 64px 32px;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--type-muted);
+    border-top: 1px solid var(--paper-300);
+    margin-top: auto;
+  }
+
+  /* ====== COVER ====== */
+  .cover { display: flex; flex-direction: column; }
+  .cover-body {
+    flex: 1;
+    padding: 64px 64px 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 32px;
+  }
+  .cover .eyebrow-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 32px;
+  }
+  .cover h1 {
+    font-family: var(--font-sans);
+    font-size: 64px;
+    line-height: 1.0;
+    letter-spacing: -0.035em;
+    font-weight: 500;
+    color: var(--ink-900);
+    margin: 32px 0 0;
+    max-width: 14ch;
+  }
+  .cover h1 em {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--signal-600);
+    font-weight: 400;
+  }
+  .cover .deck {
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--type-body);
+    max-width: 56ch;
+    margin: 32px 0 0;
+  }
+  .cover .leak-list {
+    margin-top: 32px;
+    border-top: 1px solid var(--paper-300);
+    padding-top: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 32px;
+  }
+  .cover .leak-list .item {
+    display: grid;
+    grid-template-columns: 14px 1fr;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink-900);
+  }
+  .cover .leak-list .item::before {
+    content: "";
+    width: 6px; height: 6px;
+    background: var(--leak-500);
+    margin-top: 8px;
+    border-radius: 50%;
+  }
+  .cover-rule {
+    height: 6px;
+    background: var(--ink-900);
+    margin: 0 0 0 64px;
+    width: 64px;
+  }
+  .cover-attribution {
+    padding: 24px 64px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    border-top: 1px solid var(--paper-300);
+    margin-top: 32px;
+  }
+  .cover-attribution .label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--type-muted);
+  }
+  .cover-attribution .author {
+    font-size: 14px;
+    color: var(--ink-900);
+    font-weight: 500;
+  }
+
+  /* ====== BODY PAGE ====== */
+  .body-page-content {
+    padding: 56px 64px 80px;
+  }
+  .section-mark {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 24px;
+    align-items: baseline;
+    border-bottom: 1px solid var(--paper-300);
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+  }
+  .section-mark .num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--signal-600);
+    border-top: 3px solid var(--signal-500);
+    padding-top: 8px;
+  }
+  .section-mark h2 {
+    font-family: var(--font-sans);
+    font-size: 36px;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    font-weight: 500;
+    color: var(--ink-900);
+    margin: 0;
+    max-width: 22ch;
+  }
+  .body-page-content > p.lead {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--type-body);
+    max-width: 64ch;
+    margin: 0 0 32px;
+  }
+  .body-stage {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 28px;
+    padding: 24px 0;
+    border-top: 1px solid var(--paper-300);
+  }
+  .body-stage:last-child { border-bottom: 1px solid var(--paper-300); }
+  .body-stage .stage-head {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--type-muted);
+  }
+  .body-stage .stage-head h4 {
+    font-family: var(--font-sans);
+    text-transform: none;
+    letter-spacing: -0.01em;
+    font-size: 17px;
+    color: var(--ink-900);
+    font-weight: 600;
+    margin: 6px 0 0;
+  }
+  .body-stage p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--type-body);
+    margin: 0 0 10px;
+  }
+  .body-stage strong { color: var(--ink-900); font-weight: 600; }
+
+  .pull-block {
+    margin: 32px 0 0;
+    padding: 24px 24px 24px 28px;
+    border-left: 3px solid var(--signal-500);
+    background: var(--paper-50);
+  }
+  .pull-block p {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-style: italic;
+    line-height: 1.3;
+    color: var(--ink-900);
+  }
+
+  /* ====== CHECKLIST PAGE ====== */
+  .checklist-page-content { padding: 56px 64px 80px; }
+  .check-block {
+    margin-top: 32px;
+    border: 1px solid var(--paper-300);
+    background: var(--paper-50);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .check-block header {
+    background: var(--ink-900);
+    color: var(--type-on-dark-strong);
+    padding: 16px 24px;
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .check-block header .title { font-weight: 500; }
+  .check-block header .signal { color: var(--signal-300); }
+  .check-block .row {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 14px;
+    padding: 14px 24px;
+    border-top: 1px solid var(--paper-300);
+    align-items: start;
+  }
+  .check-block .row:first-of-type { border-top: 0; }
+  .check-block .box {
+    width: 18px; height: 18px;
+    border: 1.5px solid var(--ink-900);
+    border-radius: 2px;
+    margin-top: 2px;
+    background: white;
+  }
+  .check-block .row p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-900);
+  }
+  .check-block footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--paper-300);
+    background: var(--paper-100);
+    font-size: 13px;
+    color: var(--ink-900);
+    line-height: 1.5;
+  }
+  .check-block footer strong { color: var(--leak-500); font-weight: 600; }
+
+  /* ====== CTA PAGE ====== */
+  .cta-page {
+    background: var(--ink-900);
+    color: var(--type-on-dark-strong);
+  }
+  .cta-page .doc-header { color: var(--type-on-dark-muted); }
+  .cta-page .doc-header .word { color: var(--type-on-dark-strong); }
+  .cta-page .doc-footer { color: var(--type-on-dark-muted); border-top-color: var(--ink-700); }
+  .cta-page-content {
+    padding: 56px 64px 80px;
+    position: relative;
+  }
+  .cta-page-content::before {
+    content: "";
+    position: absolute;
+    top: 0; right: 0;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle at 100% 0%, rgba(43,162,79,0.20), transparent 60%);
+    pointer-events: none;
+  }
+  .cta-page .eyebrow { color: var(--signal-300); }
+  .cta-page h2 {
+    font-family: var(--font-sans);
+    font-size: 56px;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    font-weight: 500;
+    color: var(--type-on-dark-strong);
+    margin: 24px 0 24px;
+    max-width: 16ch;
+    position: relative;
+  }
+  .cta-page h2 em {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--signal-300);
+    font-weight: 400;
+  }
+  .cta-page .lead {
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--type-on-dark-body);
+    max-width: 56ch;
+    margin: 0 0 40px;
+    position: relative;
+  }
+  .cta-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 32px;
+    position: relative;
+  }
+  .cta-list li {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--type-on-dark-strong);
+    line-height: 1.5;
+  }
+  .cta-list li::before {
+    content: "→";
+    color: var(--signal-300);
+    font-family: var(--font-mono);
+    font-weight: 500;
+  }
+  .cta-card {
+    background: var(--ink-1000);
+    border: 1px solid var(--ink-700);
+    border-radius: 4px;
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+    position: relative;
+  }
+  .cta-card .meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--type-on-dark-muted);
+  }
+  .cta-card h3 {
+    margin: 8px 0 4px;
+    font-size: 22px;
+    color: var(--type-on-dark-strong);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+  .cta-card .url {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--signal-300);
+    margin-top: 4px;
+  }
+  .cta-btn {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    background: var(--signal-500);
+    color: var(--ink-1000);
+    padding: 16px 22px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    border: none;
+    cursor: pointer;
+  }
+  .cta-btn .arrow { font-family: var(--font-mono); font-weight: 400; }
+
+  /* Numerical math callout for body page */
+  .math-row {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--paper-300);
+    border: 1px solid var(--paper-300);
+  }
+  .math-cell {
+    background: var(--paper-50);
+    padding: 20px;
+  }
+  .math-cell .lbl {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--type-muted);
+    margin-bottom: 8px;
+  }
+  .math-cell .val {
+    font-size: 28px;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink-900);
+  }
+  .math-cell .val.leak { color: var(--leak-500); }
+  .math-cell .val.gain { color: var(--signal-600); }
+  .math-cell .desc {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--type-muted);
+    line-height: 1.45;
+  }
+
+  .label-pad { padding-bottom: 96px; }
+</style>
+</head>
+<body class="card-root">
+<div class="card-shell">
+
+  <div class="card-header">
+    <div>
+      <div class="eyebrow">UI kit · 06</div>
+      <div class="card-title">Lead-magnet document</div>
+    </div>
+    <div class="card-meta">A4 · 4 page templates · operational diagnostic guide</div>
+  </div>
+
+  <div class="stage">
+
+    <!-- ===== 1. COVER ===== -->
+    <div style="position: relative;" class="label-pad">
+      <div class="page-meta" style="position: relative; padding-bottom: 12px;">Page template · Cover</div>
+      <div class="page cover">
+        <div class="doc-header">
+          <span class="word"><span class="mark">C</span>Calon</span>
+          <span>Operational Systems · 2026</span>
+        </div>
+        <div class="cover-body">
+          <div class="eyebrow-row">
+            <span class="eyebrow signal">Diagnostic guide · 9 pages · 12 min read</span>
+            <span class="eyebrow">For trades · security · FM · field service</span>
+          </div>
+          <div>
+            <div class="cover-rule" style="margin-left: 0;"></div>
+            <h1>Why operational systems matter more than you <em>think.</em></h1>
+            <p class="deck">The hidden revenue leaks in your sales pipeline, delivery process, and customer lifecycle. And how to plug them — without hiring, without working harder, and without buying another piece of software you won't use.</p>
+            <div class="leak-list">
+              <div class="item">The quote took longer than it should have — two follow-ups before they said yes.</div>
+              <div class="item">The engineer showed up without clear scope — 30 minutes of clarification on site.</div>
+              <div class="item">The job ran 25% longer than estimated, because scope wasn't clear.</div>
+              <div class="item">The customer had to chase for an update — you didn't have visibility.</div>
+              <div class="item">They never called back for the next job — no system to stay in touch.</div>
+              <div class="item">You can't see which jobs made money — no real cost tracking.</div>
+            </div>
+          </div>
+        </div>
+        <div class="cover-attribution">
+          <div>
+            <div class="label">Published by</div>
+            <div class="author">Calon AI Solutions · calonai.com</div>
+          </div>
+          <div style="text-align: right;">
+            <div class="label">Edition</div>
+            <div class="author">2026 · v1</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 2. BODY PAGE — three-stage breakdown ===== -->
+    <div style="position: relative;" class="label-pad">
+      <div class="page-meta" style="position: relative; padding-bottom: 12px;">Page template · Body · staged content</div>
+      <div class="page">
+        <div class="doc-header">
+          <span class="word"><span class="mark">C</span>Calon</span>
+          <span>02 · Where margin leaks</span>
+        </div>
+        <div class="body-page-content">
+          <div class="section-mark">
+            <div class="num">02 / 09</div>
+            <h2>Revenue leaks before, during, and after the job</h2>
+          </div>
+          <p class="lead">Most service businesses don't have a sales problem. They have an operational problem — and it costs money at every stage of the business. Understanding where the leakage happens is the first step to fixing it.</p>
+
+          <div class="body-stage">
+            <div class="stage-head">
+              <div>Stage · 01</div>
+              <h4>Before the job</h4>
+              <div style="font-size: 12px; color: var(--type-muted); text-transform: none; letter-spacing: 0; margin-top: 6px; line-height: 1.5;">Sales · quoting · response time</div>
+            </div>
+            <div>
+              <p>Enquiries arrive in multiple places — forms, calls, referrals, emails, WhatsApp, social messages. There's no consistent follow-up system. First response takes <strong>24 to 48 hours</strong> instead of 2 to 4 hours.</p>
+              <p>Creating a quote requires manual data entry from conversations. You don't have a single view of what's been quoted, what's pending, or what's stalled.</p>
+            </div>
+          </div>
+
+          <div class="body-stage">
+            <div class="stage-head">
+              <div>Stage · 02</div>
+              <h4>During the job</h4>
+              <div style="font-size: 12px; color: var(--type-muted); text-transform: none; letter-spacing: 0; margin-top: 6px; line-height: 1.5;">Delivery · margin protection</div>
+            </div>
+            <div>
+              <p>This is where most service businesses leak the most money — and often don't realise it. Engineers show up without clear scope and spend <strong>30 to 60 minutes</strong> clarifying on site.</p>
+              <p>Time on site isn't tracked, so you don't know if your estimates are accurate. Scope creep happens without approval or charge. Jobs run over without early warning.</p>
+            </div>
+          </div>
+
+          <div class="body-stage">
+            <div class="stage-head">
+              <div>Stage · 03</div>
+              <h4>After the job</h4>
+              <div style="font-size: 12px; color: var(--type-muted); text-transform: none; letter-spacing: 0; margin-top: 6px; line-height: 1.5;">Customer lifecycle · repeat work</div>
+            </div>
+            <div>
+              <p>There's no systematic follow-up after work is complete. Repeat work comes in randomly — if it comes at all. Referrals are sporadic because the relationship isn't maintained beyond the transaction.</p>
+            </div>
+          </div>
+
+          <div class="pull-block">
+            <p>These aren't effort problems. These are system and workflow problems. And they cost money at every stage.</p>
+          </div>
+
+          <div class="math-row">
+            <div class="math-cell"><div class="lbl">Before · pipeline</div><div class="val leak">£25–50k</div><div class="desc">Lost to slow quoting and follow-up</div></div>
+            <div class="math-cell"><div class="lbl">During · delivery</div><div class="val leak">£50–100k</div><div class="desc">Rework · scope creep · overruns</div></div>
+            <div class="math-cell"><div class="lbl">After · lifecycle</div><div class="val leak">£20–50k</div><div class="desc">Lost repeat and referral revenue</div></div>
+          </div>
+        </div>
+        <div class="doc-footer">
+          <span>© 2026 Calon AI Solutions</span>
+          <span>02 / 09</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 3. CHECKLIST PAGE ===== -->
+    <div style="position: relative;" class="label-pad">
+      <div class="page-meta" style="position: relative; padding-bottom: 12px;">Page template · Diagnostic checklist</div>
+      <div class="page">
+        <div class="doc-header">
+          <span class="word"><span class="mark">C</span>Calon</span>
+          <span>05 · Operational friction self-check</span>
+        </div>
+        <div class="checklist-page-content">
+          <div class="section-mark">
+            <div class="num">05 / 09</div>
+            <h2>How much operational friction is in your business?</h2>
+          </div>
+          <p class="lead">Check the statements that are true for your business. Each one represents a specific operational leak with a specific cost. The more boxes you check, the more margin is being lost across your operations.</p>
+
+          <div class="check-block">
+            <header><span class="title">Sales and quoting friction</span><span class="signal">Stage 01 · before</span></header>
+            <div class="row"><div class="box"></div><p>Enquiries arrive in multiple places (forms, calls, emails, WhatsApp, social) with no central system.</p></div>
+            <div class="row"><div class="box"></div><p>First response usually takes 24 to 48 hours instead of 2 to 4 hours.</p></div>
+            <div class="row"><div class="box"></div><p>Creating a quote takes 2+ hours because you re-enter details manually.</p></div>
+            <div class="row"><div class="box"></div><p>You don't have a single view of what's been quoted, pending, or stalled.</p></div>
+            <div class="row"><div class="box"></div><p>Quote follow-up is inconsistent and depends on someone's memory or effort.</p></div>
+            <footer>If you checked <strong>3 or more</strong>: you're losing 15 to 25% of potential sales revenue to slower sales cycles and lost deals.</footer>
+          </div>
+
+          <div class="check-block" style="margin-top: 24px;">
+            <header><span class="title">Delivery and job efficiency</span><span class="signal">Stage 02 · during</span></header>
+            <div class="row"><div class="box"></div><p>Engineers show up without clear scope and spend 20 to 30+ minutes clarifying on site.</p></div>
+            <div class="row"><div class="box"></div><p>Job scope is documented in email conversations, not in formal handover documents.</p></div>
+            <div class="row"><div class="box"></div><p>You have rework or repeat visits 10% or more of the time because scope wasn't clear.</p></div>
+            <div class="row"><div class="box"></div><p>You don't know which jobs are running over until the engineer calls.</p></div>
+            <footer>If you checked <strong>4 or more</strong>: you're losing 20 to 40% of potential margin during delivery.</footer>
+          </div>
+        </div>
+        <div class="doc-footer">
+          <span>© 2026 Calon AI Solutions</span>
+          <span>05 / 09</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 4. SECTION OPENER PAGE ===== -->
+    <div style="position: relative;" class="label-pad">
+      <div class="page-meta" style="position: relative; padding-bottom: 12px;">Page template · Section opener · part divider</div>
+      <div class="page" style="background: var(--ink-900); color: var(--type-on-dark-strong);">
+        <div class="doc-header" style="color: var(--type-on-dark-muted);">
+          <span class="word" style="color: var(--type-on-dark-strong);"><span class="mark">C</span>Calon</span>
+          <span>Part 02 · During the job</span>
+        </div>
+        <div style="padding: 240px 64px 64px; display: grid; grid-template-rows: auto 1fr auto; min-height: 760px;">
+          <div>
+            <div style="font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--signal-300); border-top: 3px solid var(--signal-500); padding-top: 12px; width: fit-content; margin-bottom: 32px;">Part 02 / 03 · During the job</div>
+            <h2 style="font-family: var(--font-sans); font-size: 88px; line-height: 0.95; letter-spacing: -0.04em; font-weight: 500; color: var(--type-on-dark-strong); margin: 0; max-width: 14ch;">Where most margin <em style="font-family: var(--font-display); font-style: italic; color: var(--signal-300); font-weight: 400;">disappears.</em></h2>
+            <p style="margin: 32px 0 0; font-size: 19px; line-height: 1.5; color: var(--type-on-dark-body); max-width: 52ch;">Sales gets the attention. Delivery loses the money. The next four pages walk through the workflows that quietly drain 20–40% of margin on every job — and what an operational fix looks like in practice.</p>
+          </div>
+          <div></div>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding-top: 32px; border-top: 1px solid var(--ink-700);">
+            <div><div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--type-on-dark-muted);">Workflow 03</div><div style="font-size: 14px; color: var(--type-on-dark-strong); margin-top: 6px;">Job handover & scope</div></div>
+            <div><div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--type-on-dark-muted);">Workflow 04</div><div style="font-size: 14px; color: var(--type-on-dark-strong); margin-top: 6px;">Time tracking</div></div>
+            <div><div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--type-on-dark-muted);">Workflow 05</div><div style="font-size: 14px; color: var(--type-on-dark-strong); margin-top: 6px;">Scope creep</div></div>
+            <div><div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--type-on-dark-muted);">Workflow 06</div><div style="font-size: 14px; color: var(--type-on-dark-strong); margin-top: 6px;">Job profitability</div></div>
+          </div>
+        </div>
+        <div class="doc-footer" style="color: var(--type-on-dark-muted); border-top-color: var(--ink-700);">
+          <span>© 2026 Calon AI Solutions</span>
+          <span>04 / 09</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 5. WORKFLOW BREAKDOWN PAGE ===== -->
+    <div style="position: relative;" class="label-pad">
+      <div class="page-meta" style="position: relative; padding-bottom: 12px;">Page template · Workflow breakdown · now → with Calon</div>
+      <div class="page">
+        <div class="doc-header">
+          <span class="word"><span class="mark">C</span>Calon</span>
+          <span>Workflow 03 · Job handover & scope</span>
+        </div>
+        <div class="body-page-content">
+          <div class="section-mark">
+            <div class="num">Workflow · 03</div>
+            <h2>Job handover and scope clarity</h2>
+          </div>
+          <p class="lead">When job scope lives in email threads instead of a standard handover document, every job starts with 30 minutes of clarification on site — and ends with rework you absorb.</p>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--paper-300); border: 1px solid var(--paper-300); margin-top: 8px;">
+            <div style="background: var(--paper-50); padding: 28px;">
+              <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--leak-500); margin-bottom: 16px;">How it works now</div>
+              <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 12px;">
+                <li style="display: grid; grid-template-columns: 14px 1fr; gap: 12px; font-size: 14px; line-height: 1.5; color: var(--ink-900);"><span style="color: var(--leak-500); font-family: var(--font-mono); font-weight: 700;">×</span><span>Scope captured across phone notes, email threads, the founder's memory.</span></li>
+                <li style="display: grid; grid-template-columns: 14px 1fr; gap: 12px; font-size: 14px; line-height: 1.5; color: var(--ink-900);"><span style="color: var(--leak-500); font-family: var(--font-mono); font-weight: 700;">×</span><span>Engineer arrives on site and spends 30 minutes phoning the office.</span></li>
+                <li style="display: grid; grid-template-columns: 14px 1fr; gap: 12px; font-size: 14px; line-height: 1.5; color: var(--ink-900);"><span style="color: var(--leak-500); font-family: var(--font-mono); font-weight: 700;">×</span><span>Materials wrong, second visit booked, customer chases for an update.</span></li>
+                <li style="display: grid; grid-template-columns: 14px 1fr; gap: 12px; font-size: 14px; line-height: 1.5; color: var(--ink-900);"><span style="color: var(--leak-500); font-family: var(--font-mono); font-weight: 700;">×</span><span>Cost absorbed because there's no record of what was originally agreed.</span></li>
+              </ul>
+            </div>
+            <div style="background: white; padding: 28px;">
+              <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--signal-600); margin-bottom: 16px;">With an operational system</div>
+              <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 12px;">
+                <li style="display: grid; grid-template-columns: 14px 1fr; gap: 12px; font-size: 14px; line-height: 1.5; color: var(--ink-900);"><span style="color: var(--signal-600); font-family: var(--font-mono); font-weight: 700;">→</span><span>One handover document per job. Standard fields. Customer signs off pre-arrival.</span></li>
+                <li style="display: grid; grid-template-columns: 14px 1fr; gap: 12px; font-size: 14px; line-height: 1.5; color: var(--ink-900);"><span style="color: var(--signal-600); font-family: var(--font-mono); font-weight: 700;">→</span><span>Engineer reads scope on phone in transit. Materials list confirmed.</span></li>
+                <li style="display: grid; grid-template-columns: 14px 1fr; gap: 12px; font-size: 14px; line-height: 1.5; color: var(--ink-900);"><span style="color: var(--signal-600); font-family: var(--font-mono); font-weight: 700;">→</span><span>Job starts within 5 minutes of arrival. No phone calls back to office.</span></li>
+                <li style="display: grid; grid-template-columns: 14px 1fr; gap: 12px; font-size: 14px; line-height: 1.5; color: var(--ink-900);"><span style="color: var(--signal-600); font-family: var(--font-mono); font-weight: 700;">→</span><span>Out-of-scope requests trigger a charge approval, signed by the customer.</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--paper-300); border: 1px solid var(--paper-300); border-top: 0;">
+            <div style="background: var(--paper-50); padding: 20px;">
+              <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--type-muted); margin-bottom: 8px;">Time saved</div>
+              <div style="font-size: 28px; line-height: 1; font-weight: 500; letter-spacing: -0.02em; color: var(--signal-600);">25 min</div>
+              <div style="margin-top: 6px; font-size: 12px; color: var(--type-muted); line-height: 1.45;">per job · 200+ jobs / year</div>
+            </div>
+            <div style="background: var(--paper-50); padding: 20px;">
+              <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--type-muted); margin-bottom: 8px;">Rework reduction</div>
+              <div style="font-size: 28px; line-height: 1; font-weight: 500; letter-spacing: -0.02em; color: var(--signal-600);">−60%</div>
+              <div style="margin-top: 6px; font-size: 12px; color: var(--type-muted); line-height: 1.45;">second-visit incidents</div>
+            </div>
+            <div style="background: var(--paper-50); padding: 20px;">
+              <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--type-muted); margin-bottom: 8px;">Margin recovered</div>
+              <div style="font-size: 28px; line-height: 1; font-weight: 500; letter-spacing: -0.02em; color: var(--ink-900);">£32k / yr</div>
+              <div style="margin-top: 6px; font-size: 12px; color: var(--type-muted); line-height: 1.45;">£500k mid-size firm</div>
+            </div>
+          </div>
+
+          <div class="pull-block" style="margin-top: 32px;">
+            <p>The fix isn't a new app. It's a one-page document and a rule about when to use it.</p>
+          </div>
+        </div>
+        <div class="doc-footer">
+          <span>© 2026 Calon AI Solutions</span>
+          <span>05 / 09</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 6. PROOF / CASE PAGE ===== -->
+    <div style="position: relative;" class="label-pad">
+      <div class="page-meta" style="position: relative; padding-bottom: 12px;">Page template · Proof / case study · margin recovered</div>
+      <div class="page">
+        <div class="doc-header">
+          <span class="word"><span class="mark">C</span>Calon</span>
+          <span>07 · What recovery looks like</span>
+        </div>
+        <div class="body-page-content">
+          <div class="section-mark">
+            <div class="num">07 / 09</div>
+            <h2>£82k recovered in 14 weeks · FM operator, 14 engineers</h2>
+          </div>
+          <p class="lead">A composite picture, drawn from operations we see across trades, security, and FM. The numbers are typical, not exceptional. <strong style="color: var(--ink-900);">PROVISIONAL — replace with named case studies once approved.</strong></p>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 16px;">
+            <div style="border: 1px solid var(--paper-300); padding: 24px; background: var(--paper-50);">
+              <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--type-muted); margin-bottom: 8px;">Before · the operator</div>
+              <p style="margin: 0 0 12px; font-size: 14px; line-height: 1.6; color: var(--ink-900);">Family-run FM business. £1.4m revenue. 14 engineers. Net margin slipped from 18% to 11% over two years despite a 22% revenue increase. Founder working 60-hour weeks holding it together.</p>
+              <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-900);"><strong style="color: var(--leak-500);">Diagnosis:</strong> margin leakage concentrated in delivery — handover, time tracking, scope creep.</p>
+            </div>
+            <div style="border: 1px solid var(--paper-300); padding: 24px; background: white;">
+              <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--signal-600); margin-bottom: 8px;">After · 14 weeks</div>
+              <p style="margin: 0 0 12px; font-size: 14px; line-height: 1.6; color: var(--ink-900);">Standardised job handover, time-on-site tracking with weekly variance review, scope-change approval flow with email signature.</p>
+              <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-900);"><strong style="color: var(--signal-600);">Outcome:</strong> net margin recovered to 17%. Founder reclaims 12 hours / week.</p>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--paper-300); border: 1px solid var(--paper-300); margin-top: 32px;">
+            <div style="background: var(--paper-50); padding: 24px;"><div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--type-muted); margin-bottom: 12px;">Net margin</div><div style="font-size: 32px; line-height: 1; font-weight: 500; letter-spacing: -0.02em; color: var(--ink-900);">11% → 17%</div><div style="margin-top: 8px; font-size: 12px; color: var(--type-muted);">+6 points · 14 weeks</div></div>
+            <div style="background: var(--paper-50); padding: 24px;"><div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--type-muted); margin-bottom: 12px;">Recovered</div><div style="font-size: 32px; line-height: 1; font-weight: 500; letter-spacing: -0.02em; color: var(--signal-600);">£82k</div><div style="margin-top: 8px; font-size: 12px; color: var(--type-muted);">annualised margin · post-fix</div></div>
+            <div style="background: var(--paper-50); padding: 24px;"><div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--type-muted); margin-bottom: 12px;">On-site clarification</div><div style="font-size: 32px; line-height: 1; font-weight: 500; letter-spacing: -0.02em; color: var(--ink-900);">28 → 4 min</div><div style="margin-top: 8px; font-size: 12px; color: var(--type-muted);">per job · avg</div></div>
+            <div style="background: var(--paper-50); padding: 24px;"><div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--type-muted); margin-bottom: 12px;">Founder hours</div><div style="font-size: 32px; line-height: 1; font-weight: 500; letter-spacing: -0.02em; color: var(--signal-600);">−12 / wk</div><div style="margin-top: 8px; font-size: 12px; color: var(--type-muted);">freed for sales · planning</div></div>
+          </div>
+
+          <div style="margin-top: 32px; padding: 28px 32px; background: var(--ink-900); border-radius: 4px; display: grid; grid-template-columns: 56px 1fr; gap: 20px; align-items: start;">
+            <div style="width: 40px; height: 40px; border-radius: 999px; background: var(--ink-700);"></div>
+            <div>
+              <p style="margin: 0 0 16px; font-family: var(--font-display); font-style: italic; font-size: 22px; line-height: 1.4; color: var(--type-on-dark-strong);">"We weren't losing because we couldn't sell. We were losing because <span style="color: var(--signal-300);">thirty</span> minutes vanished on every job before anyone touched a tool."</p>
+              <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--type-on-dark-muted);">Founder · FM operator · provisional</div>
+            </div>
+          </div>
+        </div>
+        <div class="doc-footer">
+          <span>© 2026 Calon AI Solutions</span>
+          <span>07 / 09</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 7. CTA PAGE ===== -->
+    <div style="position: relative;" class="label-pad">
+      <div class="page-meta" style="position: relative; padding-bottom: 12px; color: var(--type-muted);">Page template · CTA close</div>
+      <div class="page cta-page">
+        <div class="doc-header">
+          <span class="word"><span class="mark">C</span>Calon</span>
+          <span>08 · Free operational diagnostic</span>
+        </div>
+        <div class="cta-page-content">
+          <div class="eyebrow">You've identified where you're losing money</div>
+          <h2>Now decide which workflow to <em>fix first.</em></h2>
+          <p class="lead">The best operational improvement isn't always the biggest problem. It's the one that costs the most with the clearest path to improvement and fastest results.</p>
+
+          <ul class="cta-list">
+            <li>We map your actual workflow — not how it should work, how it actually works right now.</li>
+            <li>We identify your biggest leak — specific to your business, not generic advice.</li>
+            <li>We outline what a fix could look like — practical, not theoretical.</li>
+            <li>We estimate the impact — margin, time, revenue, in real numbers.</li>
+            <li>We give you a realistic timeline and investment.</li>
+            <li>Then you decide. You might work with us. You might fix it differently. Either way, clarity.</li>
+          </ul>
+
+          <div class="cta-card">
+            <div>
+              <div class="meta">Schedule · 30 to 45 minutes · No sales pitch</div>
+              <h3>Book your free operational diagnostic</h3>
+              <div class="url">→ calonai.com / diagnostic</div>
+            </div>
+            <button class="cta-btn">Book the call <span class="arrow">→</span></button>
+          </div>
+        </div>
+        <div class="doc-footer">
+          <span>hello@calonai.com</span>
+          <span>08 / 09</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

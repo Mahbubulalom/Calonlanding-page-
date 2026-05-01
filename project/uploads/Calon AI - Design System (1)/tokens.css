@@ -1,0 +1,139 @@
+/* =============================================================
+   Calon AI — Design System Tokens · v1 (FINAL)
+   Operational systems & automation for founder-led service businesses.
+   Direction: dark-primary, editorial, McKinsey-meets-operator.
+   ============================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&display=swap');
+
+:root {
+  /* ---------- COLOR · Surfaces (dark-first) ---------- */
+  --bg-base:      #06101e;   /* page background — near-black navy */
+  --bg-secondary: #0a1628;   /* section / large block */
+  --bg-elevated:  #0f1d33;   /* cards, raised surfaces */
+  --bg-inset:     #0b1729;   /* inputs, recessed surfaces */
+  --bg-overlay:   #16263f;   /* hover, selected */
+
+  /* ---------- COLOR · Text on dark ---------- */
+  --text-primary:   #f1f4f9; /* headlines, primary copy */
+  --text-secondary: #c8d2e0; /* body, lead, descriptions */
+  --text-muted:     #8a98ad; /* captions, meta */
+  --text-subtle:    #5b6b82; /* disabled, faint */
+
+  /* ---------- COLOR · Borders ---------- */
+  --border-strong:  #2c4264;
+  --border-default: #1f3252;
+  --border-subtle:  #16263f;
+
+  /* ---------- COLOR · Accent (Signal Cyan) ---------- */
+  --accent:         #4cc9f0; /* primary accent · electric, restrained */
+  --accent-hover:   #38b6dd;
+  --accent-active:  #2a9cc1;
+  --accent-soft:    #1a3447; /* tinted bg for accent panels */
+  --accent-faint:   #0e2230; /* near-bg tinted, for hairlines */
+
+  /* ---------- COLOR · Status (used sparingly) ---------- */
+  --status-warning: #d68a3c; /* margin loss, leak, friction */
+  --status-warning-soft: #2a1d12;
+  --status-success: #5cc28a; /* gain, recovered */
+  --status-success-soft: #112620;
+  --status-alert:   #d6644a; /* errors only */
+
+  /* ---------- COLOR · Light surfaces (for paper/print docs) ---------- */
+  --paper:        #f5f3ee;   /* warm off-white — PDF page */
+  --paper-soft:   #ebe9e1;
+  --paper-line:   #d9d6cb;
+  --paper-ink:    #06101e;   /* type on paper */
+
+  /* ---------- TYPE · Families ---------- */
+  --font-sans:    'Inter Tight', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-serif:   'Source Serif 4', 'Iowan Old Style', 'Charter', Georgia, serif;
+
+  /* ---------- TYPE · Scale ---------- */
+  --fs-eyebrow:  11px;
+  --fs-micro:    12px;
+  --fs-caption:  13px;
+  --fs-body:     16px;     /* UI default */
+  --fs-body-lg:  18px;     /* document body */
+  --fs-lead:     22px;
+  --fs-h4:       24px;
+  --fs-h3:       32px;
+  --fs-h2:       44px;
+  --fs-h1:       64px;
+  --fs-display:  96px;
+
+  --lh-tight:    1.05;
+  --lh-snug:     1.2;
+  --lh-normal:   1.4;
+  --lh-relaxed:  1.55;
+  --lh-doc:      1.65;     /* document body */
+
+  --tk-tight:    -0.025em;
+  --tk-display:  -0.035em;
+  --tk-eyebrow:   0.16em;
+  --tk-mono:      0.02em;
+
+  /* ---------- SPACING (4px base) ---------- */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 20px;
+  --s-6: 24px; --s-7: 32px; --s-8: 40px; --s-9: 48px; --s-10: 64px;
+  --s-11: 80px; --s-12: 96px; --s-13: 128px;
+
+  /* ---------- RADII (operational, not soft) ---------- */
+  --r-0: 0;
+  --r-1: 2px;     /* chips, tags */
+  --r-2: 4px;     /* buttons, inputs */
+  --r-3: 6px;     /* cards (web) */
+  --r-4: 8px;     /* large surfaces, modal */
+  --r-pill: 999px;
+
+  /* ---------- BORDERS ---------- */
+  --bw-hair: 1px;
+  --bw-1:    1px;
+  --bw-2:    2px;
+  --bw-rule: 3px;
+
+  /* ---------- SHADOWS · restrained, no glows ---------- */
+  --shadow-1: 0 1px 2px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.02);
+  --shadow-2: 0 6px 18px rgba(0,0,0,0.35), 0 1px 2px rgba(0,0,0,0.25);
+  --shadow-3: 0 24px 60px rgba(0,0,0,0.45), 0 6px 14px rgba(0,0,0,0.30);
+  --shadow-paper: 0 30px 60px -20px rgba(0,0,0,0.55), 0 8px 22px -10px rgba(0,0,0,0.35);
+
+  /* Hairline accent — used in place of glow */
+  --hairline-accent: 0 0 0 1px var(--accent-soft);
+
+  /* ---------- MOTION ---------- */
+  --dur-fast:   120ms;
+  --dur-base:   200ms;
+  --dur-slow:   320ms;
+  --ease-std:   cubic-bezier(0.2, 0, 0, 1);
+  --ease-emp:   cubic-bezier(0.2, 0, 0, 1.15);
+  --ease-exit:  cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* Default body styling for all cards */
+.card-root {
+  font-family: var(--font-sans);
+  background: var(--bg-base);
+  color: var(--text-secondary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'ss01','cv11';
+}
+
+/* Eyebrow */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tk-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.eyebrow.accent { color: var(--accent); }
+.eyebrow.on-light { color: #5b6b82; }
+
+/* Hairline rule */
+.rule { height: var(--bw-rule); width: 48px; background: var(--text-primary); border: 0; }
+.rule.accent { background: var(--accent); }
+.rule.thin   { height: 1px; background: var(--border-default); width: 100%; }

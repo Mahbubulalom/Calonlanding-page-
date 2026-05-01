@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Practical AI & Automation Roadmap — Calon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-bg: #0a0f1a;
+            --dark-secondary: #0f1420;
+            --dark-tertiary: #151d2d;
+            --accent-cyan: #00d9ff;
+            --accent-blue: #0099ff;
+            --accent-teal: #00b8a9;
+            --text-primary: #f5f7fa;
+            --text-secondary: #b3bcc7;
+            --text-tertiary: #8a96a8;
+            --border-color: #1a2332;
+            --border-light: #242d3a;
+            --success-green: #00b86e;
+            --error-red: #ff4444;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Lead Capture Section */
+        .lead-capture {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-secondary) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .lead-capture-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .lead-capture-copy {
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .lead-capture-headline {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .lead-capture-subtitle {
+            font-size: 1.1rem;
+            color: var(--accent-teal);
+            margin-bottom: 2rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .lead-capture-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .lead-capture-benefits {
+            margin-bottom: 2rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .benefit-icon {
+            color: var(--success-green);
+            font-weight: bold;
+            flex-shrink: 0;
+            width: 20px;
+        }
+
+        .benefit-text {
+            line-height: 1.6;
+        }
+
+        /* Form Section */
+        .lead-capture-form-container {
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .form-card {
+            background: linear-gradient(135deg, var(--dark-tertiary), var(--dark-secondary));
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-header {
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .form-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .form-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            color: var(--text-primary);
+            letter-spacing: 0.3px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            background: rgba(10, 15, 26, 0.5);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            background: rgba(10, 15, 26, 0.8);
+            box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-optional {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            margin-top: 0.3rem;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: var(--dark-bg);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 217, 255, 0.4);
+        }
+
+        .form-submit:active {
+            transform: translateY(0);
+        }
+
+        .form-error {
+            color: var(--error-red);
+            font-size: 0.8rem;
+            margin-top: 0.4rem;
+        }
+
+        .form-agreement {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            margin-top: 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* Thank You State */
+        .thank-you-state {
+            display: none;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .thank-you-state.show {
+            display: block;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .thank-you-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .thank-you-headline {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .thank-you-message {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .thank-you-cta {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: var(--dark-bg);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .thank-you-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 217, 255, 0.4);
+        }
+
+        .download-info {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .lead-capture-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .lead-capture {
+                padding: 3rem 2rem;
+                min-height: auto;
+            }
+
+            .lead-capture-headline {
+                font-size: 1.6rem;
+            }
+
+            .form-card {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .lead-capture-headline {
+                font-size: 1.4rem;
+            }
+
+            .lead-capture-description {
+                font-size: 0.9rem;
+            }
+
+            .form-card {
+                padding: 1.5rem;
+            }
+
+            .form-input,
+            .form-select,
+            .form-textarea {
+                font-size: 16px; /* Prevents zoom on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="lead-capture">
+        <div class="lead-capture-container">
+            <!-- Left: Copy -->
+            <div class="lead-capture-copy">
+                <h1 class="lead-capture-headline">Not Ready to Book an Audit Yet?</h1>
+                <p class="lead-capture-subtitle">Download the free roadmap and start identifying where your business is losing time, revenue, and visibility before you invest in more software, more admin, or another disconnected automation tool.</p>
+
+                <p class="lead-capture-description">
+                    This practical guide helps founder-led service businesses understand where operational friction is really coming from, which workflows are worth fixing first, and where AI or automation can actually create commercial value.
+                </p>
+
+                <div class="lead-capture-benefits">
+                    <h3 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-primary);">Inside the roadmap, you'll learn how to:</h3>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <div class="benefit-text">Spot the operational bottlenecks most service businesses miss</div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <div class="benefit-text">Understand where automation is useful and where it is not</div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <div class="benefit-text">Identify follow-up, quoting, handover, scheduling, and reporting leakage</div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <div class="benefit-text">Prioritise the first workflow worth fixing</div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <div class="benefit-text">Avoid wasting money on software that does not connect to how your business actually works</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Form -->
+            <div class="lead-capture-form-container">
+                <div class="form-card">
+                    <!-- Form State -->
+                    <form id="roadmapForm" class="form-state">
+                        <div class="form-header">
+                            <h2 class="form-title">The Practical AI & Automation Roadmap</h2>
+                            <p class="form-subtitle">For founder-led service businesses</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="name">Your Name *</label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="John Smith" required>
+                            <div class="form-error" id="nameError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="email">Business Email *</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="john@company.com" required>
+                            <div class="form-error" id="emailError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="company">Company Name *</label>
+                            <input type="text" id="company" name="company" class="form-input" placeholder="Your Company" required>
+                            <div class="form-error" id="companyError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="sector">Sector *</label>
+                            <select id="sector" name="sector" class="form-select" required>
+                                <option value="">Select your sector...</option>
+                                <option value="security">Security / Fire / FM</option>
+                                <option value="field-service">Field Service Operations</option>
+                                <option value="trades">Trades & Contractors</option>
+                                <option value="other">Other Service Business</option>
+                            </select>
+                            <div class="form-error" id="sectorError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="bottleneck">What is the biggest operational bottleneck in your business right now?</label>
+                            <textarea id="bottleneck" name="bottleneck" class="form-textarea" placeholder="Tell us about your biggest operational challenge..." style="resize: none;"></textarea>
+                            <p class="form-optional">Optional — helps us tailor resources to your sector</p>
+                        </div>
+
+                        <button type="submit" class="form-submit">Download the Free Roadmap</button>
+
+                        <p class="form-agreement">
+                            We respect your privacy. Your details are used only to send the roadmap and relevant operational insights. We'll never sell or share your information. <a href="#" style="color: var(--accent-cyan); text-decoration: none;">View our privacy policy.</a>
+                        </p>
+                    </form>
+
+                    <!-- Thank You State -->
+                    <div id="thankYouState" class="thank-you-state">
+                        <div class="thank-you-icon">✓</div>
+                        <h2 class="thank-you-headline">Thank You</h2>
+                        <p class="thank-you-message">
+                            Your roadmap is on its way. As you go through it, pay close attention to where your business relies on manual chasing, disconnected tools, repeated admin, or founder oversight. Those are usually the places where better systems can create the fastest commercial improvement.
+                        </p>
+                        <button class="thank-you-cta" onclick="bookAudit()">Book Your Free Operational Systems Audit</button>
+                        <p class="download-info">
+                            Your roadmap is being sent to: <strong id="displayEmail"></strong><br>
+                            Check your inbox (and spam folder) in the next few minutes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const form = document.getElementById('roadmapForm');
+        const thankYouState = document.getElementById('thankYouState');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Simple validation
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const company = document.getElementById('company').value.trim();
+            const sector = document.getElementById('sector').value;
+
+            let isValid = true;
+
+            // Clear errors
+            document.getElementById('nameError').textContent = '';
+            document.getElementById('emailError').textContent = '';
+            document.getElementById('companyError').textContent = '';
+            document.getElementById('sectorError').textContent = '';
+
+            if (!name) {
+                document.getElementById('nameError').textContent = 'Name is required';
+                isValid = false;
+            }
+
+            if (!email || !email.includes('@')) {
+                document.getElementById('emailError').textContent = 'Valid email is required';
+                isValid = false;
+            }
+
+            if (!company) {
+                document.getElementById('companyError').textContent = 'Company name is required';
+                isValid = false;
+            }
+
+            if (!sector) {
+                document.getElementById('sectorError').textContent = 'Please select a sector';
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Show thank you state
+                form.style.display = 'none';
+                thankYouState.classList.add('show');
+                document.getElementById('displayEmail').textContent = email;
+
+                // In production, this would submit to your backend/email service
+                console.log('Form submitted:', {
+                    name: name,
+                    email: email,
+                    company: company,
+                    sector: sector,
+                    bottleneck: document.getElementById('bottleneck').value
+                });
+
+                // Simulate PDF download
+                setTimeout(() => {
+                    console.log('PDF would be downloaded here');
+                }, 500);
+            }
+        });
+
+        function bookAudit() {
+            alert('In production, this would open your booking system.');
+        }
+    </script>
+</body>
+</html>

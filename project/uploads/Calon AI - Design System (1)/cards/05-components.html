@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Calon — Component library · v1</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../card-shell.css">
+<style>
+  body { margin: 0; }
+  .group {
+    border: 1px solid var(--border-default); background: var(--bg-elevated);
+    border-radius: 6px; padding: 32px;
+  }
+  .group + .group { margin-top: 24px; }
+  .group-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-bottom: 1px solid var(--border-default);
+    padding-bottom: 14px; margin-bottom: 24px;
+  }
+  .group-head h3 { margin: 0; font-size: 16px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; }
+  .group-head h3 small { font-weight: 400; color: var(--text-muted); margin-left: 12px; font-size: 13px; }
+  .group-head .role { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+
+  .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-sans); font-size: 14px; font-weight: 500; line-height: 1;
+    padding: 12px 18px; border-radius: 4px; border: 1px solid transparent;
+    cursor: pointer; transition: all var(--dur-fast) var(--ease-std);
+    letter-spacing: -0.005em;
+  }
+  .btn-primary { background: var(--accent); color: var(--bg-base); }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-secondary { background: transparent; color: var(--text-primary); border-color: var(--border-strong); }
+  .btn-secondary:hover { background: var(--bg-overlay); border-color: var(--accent); }
+  .btn-text { background: transparent; color: var(--accent); padding: 12px 4px; border-radius: 0; border-bottom: 1px solid var(--accent); }
+  .btn-text:hover { color: var(--accent-hover); border-bottom-color: var(--accent-hover); }
+  .btn-lg { font-size: 15px; padding: 16px 22px; }
+  .btn-sm { font-size: 12px; padding: 8px 12px; }
+  .btn .arr { font-family: var(--font-mono); font-weight: 400; }
+
+  /* Tag */
+  .tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 999px;
+    background: var(--bg-overlay); color: var(--text-secondary);
+    border: 1px solid var(--border-default);
+  }
+  .tag.accent { background: var(--accent-soft); color: var(--accent); border-color: rgba(76,201,240,0.25); }
+  .tag.warn   { background: var(--status-warning-soft); color: var(--status-warning); border-color: rgba(214,138,60,0.25); }
+  .tag.success{ background: var(--status-success-soft); color: var(--status-success); border-color: rgba(92,194,138,0.25); }
+  .tag .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  /* Metric card */
+  .metric {
+    background: var(--bg-elevated); border: 1px solid var(--border-default);
+    border-radius: 6px; padding: 24px;
+  }
+  .metric .eyebrow { margin-bottom: 12px; }
+  .metric .num { font-size: 48px; line-height: 1; letter-spacing: -0.025em; font-weight: 500; color: var(--text-primary); }
+  .metric .num .unit { font-family: var(--font-mono); font-size: 22px; color: var(--text-muted); margin-left: 4px; }
+  .metric .desc { font-size: 13px; line-height: 1.5; color: var(--text-secondary); margin-top: 12px; }
+  .metric.warn .num { color: var(--status-warning); }
+  .metric.warn .eyebrow { color: var(--status-warning); }
+  .metric.success .num { color: var(--status-success); }
+  .metric.success .eyebrow { color: var(--status-success); }
+
+  /* Proof card */
+  .proof {
+    background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px;
+    padding: 28px; display: flex; flex-direction: column; gap: 16px;
+  }
+  .proof .quote {
+    font-family: var(--font-serif); font-style: italic; font-size: 22px;
+    line-height: 1.35; color: var(--text-primary); margin: 0;
+  }
+  .proof .attribution {
+    display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: center;
+    padding-top: 16px; border-top: 1px solid var(--border-default);
+  }
+  .proof .ph { width: 40px; height: 40px; border-radius: 999px; background: var(--bg-overlay); border: 1px solid var(--border-default); }
+  .proof .who { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+  .proof .who small { display: block; color: var(--text-muted); font-weight: 400; margin-top: 2px; font-size: 12px; }
+
+  /* Sector card */
+  .sector {
+    background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px;
+    padding: 24px; display: flex; flex-direction: column; gap: 8px;
+    min-height: 180px;
+  }
+  .sector .lbl { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+  .sector h4 { margin: 4px 0 0; font-size: 22px; color: var(--text-primary); font-weight: 500; letter-spacing: -0.015em; }
+  .sector p { margin: 0; font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+  .sector .frictions {
+    margin-top: auto; padding-top: 14px; border-top: 1px solid var(--border-default);
+    font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em;
+  }
+
+  /* Process step */
+  .process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .step {
+    background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px;
+    padding: 24px; display: flex; flex-direction: column; gap: 8px;
+    position: relative;
+  }
+  .step .num {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--accent);
+    border-top: 2px solid var(--accent); padding-top: 8px; width: fit-content;
+  }
+  .step h5 { margin: 4px 0 0; font-size: 18px; color: var(--text-primary); font-weight: 500; letter-spacing: -0.01em; }
+  .step p { margin: 0; font-size: 13px; line-height: 1.55; color: var(--text-secondary); }
+
+  /* Checklist row */
+  .check-block { background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px; overflow: hidden; }
+  .check-block header { background: var(--bg-base); padding: 14px 20px; border-bottom: 1px solid var(--border-default); display: flex; justify-content: space-between; align-items: baseline; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .check-block header .title { color: var(--text-primary); }
+  .check-block header .signal { color: var(--accent); }
+  .check-row {
+    display: grid; grid-template-columns: 28px 1fr; gap: 14px;
+    padding: 14px 20px; border-top: 1px solid var(--border-default); align-items: start;
+  }
+  .check-row:first-of-type { border-top: 0; }
+  .check-row .box { width: 18px; height: 18px; border: 1.5px solid var(--text-muted); border-radius: 2px; margin-top: 2px; background: var(--bg-inset); position: relative; }
+  .check-row.checked .box { background: var(--accent); border-color: var(--accent); }
+  .check-row.checked .box::after { content: ""; position: absolute; left: 4px; top: 1px; width: 6px; height: 11px; border-right: 2px solid var(--bg-base); border-bottom: 2px solid var(--bg-base); transform: rotate(45deg); }
+  .check-row p { margin: 0; font-size: 14px; line-height: 1.55; color: var(--text-primary); }
+  .check-row .cost { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--status-warning); margin-top: 4px; }
+
+  /* Comparison table */
+  .compare { background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px; overflow: hidden; }
+  .compare .row { display: grid; grid-template-columns: 1fr 1.2fr 1.2fr; border-top: 1px solid var(--border-default); }
+  .compare .row:first-child { border-top: 0; background: var(--bg-base); }
+  .compare .cell { padding: 16px 20px; font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+  .compare .cell.head { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-primary); }
+  .compare .cell.head.now { color: var(--status-warning); }
+  .compare .cell.head.with { color: var(--accent); }
+  .compare .cell.label { font-weight: 500; color: var(--text-primary); }
+
+  /* Callout */
+  .callout {
+    display: grid; grid-template-columns: 56px 1fr; gap: 20px;
+    padding: 24px 28px; border-radius: 6px;
+    background: var(--bg-elevated); border: 1px solid var(--border-default);
+    border-left: 3px solid var(--accent);
+  }
+  .callout .icon { width: 40px; height: 40px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; }
+  .callout h5 { color: var(--text-primary); margin: 0 0 4px; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+  .callout p { margin: 0; font-size: 14px; line-height: 1.55; color: var(--text-secondary); }
+
+  /* Quote / testimonial */
+  .testimonial {
+    background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px;
+    padding: 40px;
+  }
+  .testimonial blockquote { margin: 0 0 24px; padding: 0; }
+  .testimonial blockquote p {
+    font-family: var(--font-sans); font-size: 24px; line-height: 1.4; font-weight: 400;
+    color: var(--text-primary); margin: 0; letter-spacing: -0.015em;
+  }
+  .testimonial blockquote em { font-family: var(--font-serif); font-style: italic; color: var(--accent); font-weight: 400; }
+  .testimonial cite { display: grid; grid-template-columns: 48px 1fr auto; gap: 14px; align-items: center; font-style: normal; padding-top: 24px; border-top: 1px solid var(--border-default); }
+  .testimonial cite .ph { width: 48px; height: 48px; border-radius: 999px; background: var(--bg-overlay); border: 1px solid var(--border-default); }
+  .testimonial cite .who { font-size: 14px; color: var(--text-primary); font-weight: 500; }
+  .testimonial cite .who small { display: block; color: var(--text-muted); font-weight: 400; margin-top: 2px; font-size: 12px; }
+  .testimonial cite .stat { font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.04em; }
+
+  /* Eyebrow specimen */
+  .eyebrow-spec {
+    display: flex; flex-direction: column; gap: 12px;
+    padding: 24px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: 6px;
+  }
+  .eyebrow-spec .label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; color: var(--text-muted); }
+
+  /* Footer */
+  .footer-block {
+    background: var(--bg-secondary); border: 1px solid var(--border-default); border-radius: 6px;
+    padding: 56px 48px 32px;
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px;
+  }
+  .footer-block h6 { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin: 0 0 16px; font-weight: 500; }
+  .footer-block ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .footer-block li { font-size: 14px; color: var(--text-secondary); }
+  .footer-block .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--text-primary); margin-bottom: 16px; }
+  .footer-block .brand .mk { width: 26px; height: 26px; border: 1.5px solid var(--accent); border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; color: var(--accent); font-family: var(--font-mono); font-size: 13px; font-weight: 600; }
+  .footer-block .meta-row { grid-column: 1 / -1; padding-top: 32px; border-top: 1px solid var(--border-default); display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--text-muted); }
+
+  /* Section label / eyebrow demo */
+  .section-label-demo {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;
+  }
+  .sld {
+    background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px; padding: 28px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .sld .preview { padding: 12px 0; }
+  .sld .desc { padding-top: 16px; border-top: 1px solid var(--border-default); font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+
+  .compendium-head {
+    background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-base) 100%);
+    margin: -64px -72px 64px; padding: 80px 72px 60px;
+    border-bottom: 1px solid var(--border-default);
+  }
+  .compendium-head h1 {
+    font-size: 56px; line-height: 1.0; letter-spacing: -0.03em; font-weight: 500;
+    color: var(--text-primary); margin: 16px 0 0; max-width: 18ch;
+  }
+  .compendium-head h1 em { font-family: var(--font-serif); font-style: italic; color: var(--accent); font-weight: 400; }
+</style>
+</head>
+<body class="card-root">
+<div class="card-shell">
+
+  <div class="compendium-head">
+    <div class="eyebrow accent">v1 component library</div>
+    <h1>Fourteen pieces. <em>That's it.</em></h1>
+  </div>
+
+  <div class="card-header">
+    <div>
+      <div class="eyebrow accent">Components · 05</div>
+      <div class="card-title">Library</div>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <span class="status-pill locked">v1 locked</span>
+    </div>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="group">
+    <div class="group-head"><h3>1 · Primary CTA <small>and 2 · Secondary CTA, 3 · Text link</small></h3><span class="role">Decisive action</span></div>
+    <div class="row" style="margin-bottom: 16px;"><button class="btn btn-primary btn-lg">Book the diagnostic <span class="arr">→</span></button><button class="btn btn-secondary">Read the guide</button><a class="btn btn-text">See how a £500k firm recovers £80k <span class="arr">→</span></a></div>
+    <div class="row"><button class="btn btn-primary">Default</button><button class="btn btn-primary btn-sm">Compact</button><button class="btn btn-secondary btn-sm">Compact</button></div>
+    <p style="font-size: 13px; color: var(--text-muted); margin: 16px 0 0; line-height: 1.6;"><b style="color: var(--text-primary);">Purpose:</b> primary = book/start the call. Secondary = read/learn. Text = inline next step. <b style="color: var(--text-primary);">Where:</b> primary used once per page; secondary may appear twice; text link unrestricted.</p>
+  </div>
+
+  <!-- TAGS -->
+  <div class="group">
+    <div class="group-head"><h3>4 · Tag / pill</h3><span class="role">Stage · status · sector</span></div>
+    <div class="row">
+      <span class="tag"><span class="dot"></span>Before the job</span>
+      <span class="tag accent"><span class="dot"></span>Approved · v1</span>
+      <span class="tag warn"><span class="dot"></span>Leak · £50k+</span>
+      <span class="tag success"><span class="dot"></span>Recovered · 12wk</span>
+      <span class="tag">Trades</span>
+      <span class="tag">FM</span>
+      <span class="tag">Hospitality</span>
+    </div>
+    <p style="font-size: 13px; color: var(--text-muted); margin: 16px 0 0; line-height: 1.6;"><b style="color: var(--text-primary);">Purpose:</b> classify content (stage, sector, status). <b style="color: var(--text-primary);">Tone:</b> mono, uppercase, restrained. <b style="color: var(--text-primary);">Where:</b> case studies, content cards, document headers.</p>
+  </div>
+
+  <!-- METRICS -->
+  <div class="group">
+    <div class="group-head"><h3>5 · Metric card</h3><span class="role">Margin · gain · loss</span></div>
+    <div class="grid-3">
+      <div class="metric"><div class="eyebrow">Conversion</div><div class="num">42<span class="unit">%</span></div><div class="desc">Quote-to-close, with auto follow-up</div></div>
+      <div class="metric warn"><div class="eyebrow">Margin loss</div><div class="num">£100<span class="unit">k / yr</span></div><div class="desc">During-job leakage, mid-size firm</div></div>
+      <div class="metric success"><div class="eyebrow">Recovered</div><div class="num">+50<span class="unit">%</span></div><div class="desc">Repeat work rate, post follow-up system</div></div>
+    </div>
+  </div>
+
+  <!-- PROOF + TESTIMONIAL -->
+  <div class="group">
+    <div class="group-head"><h3>6 · Proof card &nbsp;·&nbsp; 11 · Quote / testimonial</h3><span class="role">Credibility</span></div>
+    <div class="grid-2" style="margin-bottom: 24px;">
+      <div class="proof">
+        <p class="quote">"Quotes used to take two days. Now they're out within four hours and we're winning more of them."</p>
+        <div class="attribution"><div class="ph"></div><div class="who">Operations Director<small>Security & FM · 32 engineers · PROVISIONAL</small></div></div>
+      </div>
+      <div class="proof">
+        <p class="quote">"We didn't know which jobs made money. Now we do — and we've stopped doing the ones that don't."</p>
+        <div class="attribution"><div class="ph"></div><div class="who">Founder<small>Trades / contractor · £1.4m revenue · PROVISIONAL</small></div></div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <blockquote><p>We weren't losing because we couldn't sell. We were losing because <em>thirty</em> minutes vanished on every job before anyone touched a tool.</p></blockquote>
+      <cite><div class="ph"></div><div class="who">Founder · 14-engineer FM business<small>PROVISIONAL — swap when case study is approved</small></div><div class="stat">£82k recovered · 14 weeks</div></cite>
+    </div>
+  </div>
+
+  <!-- SECTORS -->
+  <div class="group">
+    <div class="group-head"><h3>7 · Sector card</h3><span class="role">Industry → friction → fix</span></div>
+    <div class="grid-3">
+      <div class="sector">
+        <div class="lbl">Sector · 01</div>
+        <h4>Trades & contractors</h4>
+        <p>Engineers on site without scope. Rework eats margin. Quotes drift.</p>
+        <div class="frictions">Job handover → scope · time tracking</div>
+      </div>
+      <div class="sector">
+        <div class="lbl">Sector · 02</div>
+        <h4>Security & FM</h4>
+        <p>Multi-site, multi-engineer. Visibility breaks. Schedules slip.</p>
+        <div class="frictions">Scheduling · response time · follow-up</div>
+      </div>
+      <div class="sector">
+        <div class="lbl">Sector · 03</div>
+        <h4>Hospitality & venues</h4>
+        <p>Bookings scattered across channels. Repeat work isn't surfaced.</p>
+        <div class="frictions">Lead capture · CRM · repeat revenue</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESS -->
+  <div class="group">
+    <div class="group-head"><h3>8 · Process step card</h3><span class="role">How we work · 4-step</span></div>
+    <div class="process">
+      <div class="step"><div class="num">01 · Diagnose</div><h5>Map the actual workflow</h5><p>Not how it should work. How it does. 30–45 minutes, founder + ops lead.</p></div>
+      <div class="step"><div class="num">02 · Identify</div><h5>Name the biggest leak</h5><p>Specific to the business. Not generic advice. Quantified in £.</p></div>
+      <div class="step"><div class="num">03 · Build</div><h5>Design the system</h5><p>Workflow, handover doc, automation, dashboard. Around your team, not over it.</p></div>
+      <div class="step"><div class="num">04 · Operate</div><h5>Hand it over · measure</h5><p>Trained, documented, owned by your operator. Margin recovery measured monthly.</p></div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="group">
+    <div class="group-head"><h3>9 · Checklist row</h3><span class="role">Diagnostic self-assessment</span></div>
+    <div class="check-block">
+      <header><span class="title">Delivery and job efficiency</span><span class="signal">Stage 02 · during the job</span></header>
+      <div class="check-row checked"><div class="box"></div><div><p>Engineers show up without clear scope and spend 20–30+ minutes clarifying on site.</p><div class="cost">— ≈ £18k / yr · 200 jobs × 25 min</div></div></div>
+      <div class="check-row checked"><div class="box"></div><div><p>You don't know which jobs are running over until the engineer calls.</p><div class="cost">— overrun average 25%</div></div></div>
+      <div class="check-row"><div class="box"></div><div><p>Time spent on jobs isn't tracked systematically — no actual vs estimate.</p></div></div>
+      <div class="check-row"><div class="box"></div><div><p>Scope creep happens regularly because customers ask for extras and you don't charge.</p></div></div>
+    </div>
+  </div>
+
+  <!-- COMPARISON -->
+  <div class="group">
+    <div class="group-head"><h3>10 · Comparison table</h3><span class="role">Now vs with Calon</span></div>
+    <div class="compare">
+      <div class="row">
+        <div class="cell head">Workflow</div>
+        <div class="cell head now">Now</div>
+        <div class="cell head with">With Calon</div>
+      </div>
+      <div class="row">
+        <div class="cell label">Lead response time</div>
+        <div class="cell">24–48 hours · multi-channel chaos</div>
+        <div class="cell">2–4 hours · one inbox · auto-routed</div>
+      </div>
+      <div class="row">
+        <div class="cell label">Quote turnaround</div>
+        <div class="cell">2+ hours · manual data entry</div>
+        <div class="cell">30 minutes · client history pre-filled</div>
+      </div>
+      <div class="row">
+        <div class="cell label">Job handover</div>
+        <div class="cell">Email memory · 30 min on-site clarification</div>
+        <div class="cell">Standard doc · scope confirmed pre-arrival</div>
+      </div>
+      <div class="row">
+        <div class="cell label">Repeat work</div>
+        <div class="cell">Random · founder-led relationships</div>
+        <div class="cell">Systematic · maintenance reminders proactive</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALLOUT -->
+  <div class="group">
+    <div class="group-head"><h3>12 · Callout box</h3><span class="role">Pull-out fact / warning</span></div>
+    <div class="callout">
+      <div class="icon">!</div>
+      <div class="body"><h5>40 to 60% of gross margin</h5><p>Total operational leakage on a £500k business. Most of it is preventable through systems, not harder work.</p></div>
+    </div>
+  </div>
+
+  <!-- EYEBROW / SECTION LABEL -->
+  <div class="group">
+    <div class="group-head"><h3>13 · Section label / eyebrow</h3><span class="role">Mono · uppercase · structural</span></div>
+    <div class="section-label-demo">
+      <div class="sld">
+        <div class="preview"><span class="eyebrow accent">Before the job · 02 / 09</span></div>
+        <div class="desc">PDF page · accent + page count. Always paired with chapter number on documents.</div>
+      </div>
+      <div class="sld">
+        <div class="preview"><span class="eyebrow">For trades · security · FM · field service</span></div>
+        <div class="desc">Web hero · audience qualifier. Muted to recede until needed.</div>
+      </div>
+      <div class="sld">
+        <div class="preview"><span class="eyebrow accent">Diagnostic guide · 9 pages · 12 min read</span></div>
+        <div class="desc">Lead magnet cover · always tells you the cost of reading.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="group">
+    <div class="group-head"><h3>14 · Footer block</h3><span class="role">Site / PDF close</span></div>
+    <div class="footer-block">
+      <div>
+        <div class="brand"><span class="mk">C</span>Calon</div>
+        <p style="margin: 0; font-size: 14px; color: var(--text-secondary); line-height: 1.6; max-width: 32ch;">Operational systems for founder-led service businesses. Built around how the work actually happens.</p>
+      </div>
+      <div><h6>What we do</h6><ul><li>Operational diagnostic</li><li>Workflow rebuilds</li><li>Automation systems</li><li>Founder handover</li></ul></div>
+      <div><h6>Sectors</h6><ul><li>Trades & contractors</li><li>Security & FM</li><li>Hospitality & venues</li><li>Field service</li></ul></div>
+      <div><h6>Resources</h6><ul><li>Operational leakage guide</li><li>Six-workflow framework</li><li>Diagnostic call</li><li>Case studies</li></ul></div>
+      <div class="meta-row">
+        <span>© 2026 Calon AI Solutions · hello@calonai.com</span>
+        <span>calonai.com</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Calon — Color · v1</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../card-shell.css">
+<style>
+  body { margin: 0; }
+  .intro {
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: end;
+    margin-bottom: 48px;
+  }
+  .intro h2 {
+    font-size: 56px; line-height: 1.0; letter-spacing: -0.03em;
+    font-weight: 500; color: var(--text-primary); margin: 12px 0 0; max-width: 18ch;
+  }
+  .intro h2 em { font-family: var(--font-serif); font-style: italic; color: var(--accent); font-weight: 400; }
+  .intro p { color: var(--text-secondary); font-size: 16px; line-height: 1.6; margin: 0; max-width: 50ch; }
+
+  .ratio {
+    display: grid; grid-template-columns: 70fr 22fr 6fr 2fr;
+    height: 64px; border-radius: 4px; overflow: hidden; margin-bottom: 56px;
+    border: 1px solid var(--border-default);
+  }
+  .ratio div {
+    display: flex; align-items: center; padding: 0 16px;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .ratio .r-base   { background: var(--bg-base); color: var(--text-muted); }
+  .ratio .r-elev   { background: var(--bg-elevated); color: var(--text-secondary); }
+  .ratio .r-accent { background: var(--accent); color: var(--bg-base); font-weight: 600; }
+  .ratio .r-warn   { background: var(--status-warning); color: var(--bg-base); padding: 0 8px; }
+
+  .families { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .family { border: 1px solid var(--border-default); background: var(--bg-elevated); border-radius: 6px; overflow: hidden; }
+  .family header {
+    padding: 18px 20px 14px; border-bottom: 1px solid var(--border-default);
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .family header h3 { margin: 0; font-size: 16px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; }
+  .family header .role {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent);
+  }
+  .swatch {
+    display: grid; grid-template-columns: 56px 1fr 100px;
+    gap: 16px; align-items: center;
+    padding: 14px 20px; border-top: 1px solid var(--border-default);
+  }
+  .swatch:first-child { border-top: 0; }
+  .chip { width: 48px; height: 36px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.06); }
+  .swatch .name { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+  .swatch .name small { display: block; font-weight: 400; color: var(--text-muted); margin-top: 3px; font-size: 12px; }
+  .swatch .hex { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); letter-spacing: 0.02em; text-align: right; }
+
+  .pair-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .pair { border-radius: 6px; overflow: hidden; border: 1px solid var(--border-default); }
+  .pair-demo {
+    padding: 32px 28px; min-height: 220px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .pair-demo .eyebrow { margin-bottom: 12px; }
+  .pair-demo h4 { font-size: 22px; line-height: 1.2; letter-spacing: -0.015em; font-weight: 500; margin: 0; max-width: 18ch; }
+  .pair-demo .stat { margin-top: 16px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; }
+  .pair-meta {
+    padding: 12px 16px; background: var(--bg-base); border-top: 1px solid var(--border-default);
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--text-muted);
+    display: flex; justify-content: space-between;
+  }
+
+  .demo-base   { background: var(--bg-base); color: var(--text-primary); }
+  .demo-elev   { background: var(--bg-elevated); color: var(--text-primary); }
+  .demo-elev .eyebrow { color: var(--accent); }
+  .demo-accent { background: var(--accent); color: var(--bg-base); }
+  .demo-accent .eyebrow { color: rgba(6,16,30,0.7); }
+  .demo-paper  { background: var(--paper); color: var(--paper-ink); }
+  .demo-paper  .eyebrow { color: #5b6b82; }
+</style>
+</head>
+<body class="card-root">
+<div class="card-shell">
+
+  <div class="card-header">
+    <div>
+      <div class="eyebrow accent">Foundations · 02</div>
+      <div class="card-title">Colour system</div>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <span class="status-pill locked">v1 locked</span>
+    </div>
+  </div>
+
+  <div class="intro">
+    <div>
+      <div class="eyebrow accent">House palette</div>
+      <h2>Deep navy. One <em>cyan</em> signal. Restraint.</h2>
+    </div>
+    <p>The system runs <strong style="color: var(--text-primary);">dark-first</strong>. A near-black navy base with two surface levels and a single restrained electric-cyan accent. Status colours exist but are used sparingly. There is no neon, no gradient hero, no glow. Every screen should look like a working operational tool, not a marketing site.</p>
+  </div>
+
+  <div class="ratio">
+    <div class="r-base">Base + secondary surfaces · 70%</div>
+    <div class="r-elev">Elevated cards · 22%</div>
+    <div class="r-accent">Accent · 6%</div>
+    <div class="r-warn">Status · 2%</div>
+  </div>
+
+  <section class="card-section">
+    <div class="card-section-title">Surfaces · dark</div>
+    <div class="families">
+      <div class="family">
+        <header><h3>Surface · dark</h3><span class="role">Default UI</span></header>
+        <div class="swatch"><div class="chip" style="background: var(--bg-base);"></div><div class="name">bg-base<small>page background</small></div><div class="hex">#06101E</div></div>
+        <div class="swatch"><div class="chip" style="background: var(--bg-secondary);"></div><div class="name">bg-secondary<small>section blocks</small></div><div class="hex">#0A1628</div></div>
+        <div class="swatch"><div class="chip" style="background: var(--bg-elevated);"></div><div class="name">bg-elevated<small>cards · raised</small></div><div class="hex">#0F1D33</div></div>
+        <div class="swatch"><div class="chip" style="background: var(--bg-inset);"></div><div class="name">bg-inset<small>inputs · recessed</small></div><div class="hex">#0B1729</div></div>
+        <div class="swatch"><div class="chip" style="background: var(--bg-overlay);"></div><div class="name">bg-overlay<small>hover · selected</small></div><div class="hex">#16263F</div></div>
+      </div>
+      <div class="family">
+        <header><h3>Type & borders</h3><span class="role">On-dark</span></header>
+        <div class="swatch"><div class="chip" style="background: var(--text-primary);"></div><div class="name">text-primary<small>headlines · primary copy</small></div><div class="hex">#F1F4F9</div></div>
+        <div class="swatch"><div class="chip" style="background: var(--text-secondary);"></div><div class="name">text-secondary<small>body · descriptions</small></div><div class="hex">#C8D2E0</div></div>
+        <div class="swatch"><div class="chip" style="background: var(--text-muted);"></div><div class="name">text-muted<small>captions · meta</small></div><div class="hex">#8A98AD</div></div>
+        <div class="swatch"><div class="chip" style="background: var(--text-subtle);"></div><div class="name">text-subtle<small>disabled · faint</small></div><div class="hex">#5B6B82</div></div>
+        <div class="swatch"><div class="chip" style="background: var(--border-strong);"></div><div class="name">border-strong<small>focused · emphasised</small></div><div class="hex">#2C4264</div></div>
+        <div class="swatch"><div class="chip" style="background: var(--border-default);"></div><div class="name">border-default<small>card · panel edges</small></div><div class="hex">#1F3252</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="card-section-title">Accent · signal cyan</div>
+    <div class="families">
+      <div class="family">
+        <header><h3>Accent</h3><span class="role">CTAs · highlights · 6% of surface</span></header>
+        <div class="swatch"><div class="chip" style="background: var(--accent);"></div><div class="name">accent<small>primary accent · 95% of accent use</small></div><div class="hex">#4CC9F0</div></div>
+        <div class="swatch"><div class="chip" style="background: var(--accent-hover);"></div><div class="name">accent-hover<small>button hover state</small></div><div class="hex">#38B6DD</div></div>
+        <div class="swatch"><div class="chip" style="background: var(--accent-active);"></div><div class="name">accent-active<small>pressed · active</small></div><div class="hex">#2A9CC1</div></div>
+        <div class="swatch"><div class="chip" style="background: var(--accent-soft);"></div><div class="name">accent-soft<small>tinted accent panel bg</small></div><div class="hex">#1A3447</div></div>
+      </div>
+      <div class="family">
+        <header><h3>Status</h3><span class="role">Used sparingly</span></header>
+        <div class="swatch"><div class="chip" style="background: var(--status-warning);"></div><div class="name">status-warning<small>leak · friction · margin loss</small></div><div class="hex">#D68A3C</div></div>
+        <div class="swatch"><div class="chip" style="background: var(--status-success);"></div><div class="name">status-success<small>gain · recovered · approved</small></div><div class="hex">#5CC28A</div></div>
+        <div class="swatch"><div class="chip" style="background: var(--status-alert);"></div><div class="name">status-alert<small>error states only</small></div><div class="hex">#D6644A</div></div>
+        <div class="swatch"><div class="chip" style="background: var(--paper);"></div><div class="name">paper<small>PDF / print background</small></div><div class="hex">#F5F3EE</div></div>
+        <div class="swatch"><div class="chip" style="background: var(--paper-ink);"></div><div class="name">paper-ink<small>type on paper</small></div><div class="hex">#06101E</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="card-section-title">Surface pairings · approved use</div>
+    <div class="pair-grid">
+      <div class="pair">
+        <div class="pair-demo demo-base">
+          <div><div class="eyebrow accent">Default</div><h4>Most pages live here. Dark, calm, readable.</h4></div>
+          <div class="stat" style="color: var(--accent);">bg-base + accent</div>
+        </div>
+        <div class="pair-meta"><span>#06101E</span><span>Web · default</span></div>
+      </div>
+      <div class="pair">
+        <div class="pair-demo demo-elev">
+          <div><div class="eyebrow">Card surface</div><h4>Metric cards, content cards, proof blocks.</h4></div>
+          <div class="stat" style="color: var(--accent);">bg-elevated + border</div>
+        </div>
+        <div class="pair-meta"><span>#0F1D33</span><span>Components</span></div>
+      </div>
+      <div class="pair">
+        <div class="pair-demo demo-accent">
+          <div><div class="eyebrow">Decisive CTA</div><h4>One per page. Never decorative.</h4></div>
+          <div class="stat">accent on bg-base type</div>
+        </div>
+        <div class="pair-meta"><span>#4CC9F0</span><span>CTA only</span></div>
+      </div>
+      <div class="pair">
+        <div class="pair-demo demo-paper">
+          <div><div class="eyebrow on-light">PDF · print</div><h4>Lead magnets, diagnostic guides, proposals.</h4></div>
+          <div class="stat" style="color: var(--accent-active);">paper + ink</div>
+        </div>
+        <div class="pair-meta" style="background: #ebe9e1; color: #5b6b82; border-top-color: #d9d6cb;"><span>#F5F3EE</span><span>Print only</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="card-section-title">Approved rules</div>
+    <div style="background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px; padding: 28px 32px;">
+      <ul style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 48px;">
+        <li style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">→ Dark surfaces hold ~92% of every screen. Accent is the spice.</li>
+        <li style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">→ One accent per visual area. Never two cyan elements competing.</li>
+        <li style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">→ Never gradient backgrounds. A single radial wash is allowed in the hero only.</li>
+        <li style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">→ Never glow effects. Use a 1px accent hairline if separation is needed.</li>
+        <li style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">→ Status colours never appear in marketing copy as decoration. Only in data.</li>
+        <li style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">→ PDFs use paper + ink, not the dark theme. Calon-on-paper feels operational and serious.</li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

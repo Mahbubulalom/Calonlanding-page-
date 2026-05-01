@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Calon — Typography · v1</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../card-shell.css">
+<style>
+  body { margin: 0; }
+  .specimen {
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: end; margin-bottom: 56px;
+  }
+  .big {
+    font-family: var(--font-sans); font-size: 160px; line-height: 0.9;
+    letter-spacing: -0.045em; font-weight: 500; color: var(--text-primary); margin: 0;
+  }
+  .big em { font-family: var(--font-serif); font-style: italic; color: var(--accent); font-weight: 400; }
+  .specimen p { color: var(--text-secondary); font-size: 16px; line-height: 1.6; margin: 0; max-width: 50ch; }
+
+  .families { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 24px; }
+  .fam-card {
+    border: 1px solid var(--border-default); background: var(--bg-elevated);
+    padding: 32px 28px 24px; border-radius: 6px;
+    min-height: 260px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .fam-card .glyph {
+    font-size: 96px; line-height: 1;
+    letter-spacing: -0.04em; font-weight: 500; color: var(--text-primary);
+  }
+  .fam-card .meta { border-top: 1px solid var(--border-default); padding-top: 14px; }
+  .fam-card .role {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent);
+  }
+  .fam-card .name { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-top: 4px; }
+  .fam-card .sub { font-size: 12px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
+
+  /* Type scale */
+  .scale { border-top: 1px solid var(--border-default); }
+  .scale-row {
+    display: grid; grid-template-columns: 110px 1fr 240px;
+    align-items: baseline; gap: 32px;
+    padding: 24px 0; border-bottom: 1px solid var(--border-default);
+  }
+  .scale-row .token {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent);
+  }
+  .scale-row .token small {
+    display: block; color: var(--text-muted); margin-top: 4px;
+    font-size: 10px; letter-spacing: 0; text-transform: none;
+  }
+  .scale-row .specimen-text { color: var(--text-primary); margin: 0; }
+  .scale-row .props {
+    font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);
+    line-height: 1.6; text-align: right;
+  }
+  .scale-row .props span { color: var(--text-primary); }
+
+  .s-display { font-family: var(--font-sans); font-size: 96px; line-height: 0.95; letter-spacing: -0.04em; font-weight: 500; }
+  .s-h1      { font-family: var(--font-sans); font-size: 64px; line-height: 1.0; letter-spacing: -0.035em; font-weight: 500; }
+  .s-h2      { font-family: var(--font-sans); font-size: 44px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 500; }
+  .s-h3      { font-family: var(--font-sans); font-size: 32px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 500; }
+  .s-h4      { font-family: var(--font-sans); font-size: 24px; line-height: 1.25; letter-spacing: -0.01em; font-weight: 600; }
+  .s-lead    { font-family: var(--font-sans); font-size: 22px; line-height: 1.45; font-weight: 300; }
+  .s-body-lg { font-family: var(--font-sans); font-size: 18px; line-height: 1.6; font-weight: 400; }
+  .s-body    { font-family: var(--font-sans); font-size: 16px; line-height: 1.55; font-weight: 400; }
+  .s-caption { font-family: var(--font-sans); font-size: 13px; line-height: 1.5; color: var(--text-muted); }
+  .s-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); font-weight: 500; }
+  .s-mono    { font-family: var(--font-mono); font-size: 13px; line-height: 1.5; letter-spacing: 0.02em; }
+  .s-serif   { font-family: var(--font-serif); font-style: italic; font-size: 64px; line-height: 1.05; color: var(--accent); font-weight: 400; }
+
+  .doc-spec {
+    background: var(--paper); color: var(--paper-ink);
+    border: 1px solid var(--paper-line); padding: 56px 64px; border-radius: 4px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 56px;
+    box-shadow: var(--shadow-paper);
+  }
+  .doc-spec .eyebrow { color: #5b6b82; margin-bottom: 8px; }
+  .doc-spec h2 { font-size: 36px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 500; color: var(--paper-ink); margin: 0 0 16px; }
+  .doc-spec p { font-size: 17px; line-height: 1.7; color: #1c2a3f; margin: 0 0 14px; }
+  .doc-spec strong { color: var(--paper-ink); font-weight: 600; }
+  .pull { border-left: 2px solid var(--accent-active); padding: 4px 0 4px 20px; margin: 8px 0 16px; }
+  .pull p { font-family: var(--font-serif); font-style: italic; font-size: 24px; line-height: 1.35; color: var(--paper-ink); margin: 0; font-weight: 400; }
+
+  /* Where rule */
+  .where { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .where-tile {
+    border: 1px solid var(--border-default); background: var(--bg-elevated);
+    border-radius: 6px; padding: 24px; min-height: 180px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .where-tile .lbl {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent);
+  }
+  .where-tile h5 { font-size: 18px; color: var(--text-primary); margin: 0; font-weight: 600; letter-spacing: -0.01em; }
+  .where-tile p { font-size: 13px; line-height: 1.55; color: var(--text-secondary); margin: 0; }
+  .where-tile .uses {
+    margin-top: auto;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em;
+    color: var(--text-muted); padding-top: 12px; border-top: 1px solid var(--border-default);
+  }
+</style>
+</head>
+<body class="card-root">
+<div class="card-shell">
+
+  <div class="card-header">
+    <div>
+      <div class="eyebrow accent">Foundations · 03</div>
+      <div class="card-title">Typography</div>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <span class="status-pill locked">v1 locked</span>
+    </div>
+  </div>
+
+  <div class="specimen">
+    <h1 class="big">Margin <em>leaks.</em></h1>
+    <p>Sans for everything by default. Editorial serif italic — used <strong style="color: var(--text-primary);">once per page</strong> — to lift one operative word. Mono for labels, numbers, and quantitative emphasis. The pairing reads operational, modern, editorial — never tech-marketing.</p>
+  </div>
+
+  <section class="card-section">
+    <div class="card-section-title">Families · approved</div>
+    <div class="families">
+      <div class="fam-card">
+        <div class="glyph" style="font-family: var(--font-sans);">Aa Gg</div>
+        <div class="meta">
+          <div class="role">Workhorse · 95% of type</div>
+          <div class="name">Inter Tight</div>
+          <div class="sub">Headlines + all body. Weights 300/400/500/600. Negative tracking on display sizes.</div>
+        </div>
+      </div>
+      <div class="fam-card">
+        <div class="glyph" style="font-family: var(--font-mono); font-size: 84px;">25%</div>
+        <div class="meta">
+          <div class="role">Labels · numbers · meta</div>
+          <div class="name">JetBrains Mono</div>
+          <div class="sub">Eyebrows, page numbers, stat units, code, file paths. +0.16em tracking on uppercase.</div>
+        </div>
+      </div>
+      <div class="fam-card">
+        <div class="glyph" style="font-family: var(--font-serif); font-style: italic; font-weight: 400;">leaks</div>
+        <div class="meta">
+          <div class="role">Editorial flourish · 1 word / page</div>
+          <div class="name">Source Serif 4 · Italic</div>
+          <div class="sub">Optical-sized serif. Italic only. Never body text. Always coloured cyan to signal it's the lift.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="card-section-title">Where each family is used</div>
+    <div class="where">
+      <div class="where-tile">
+        <div class="lbl">Inter Tight</div>
+        <h5>Default for everything visible</h5>
+        <p>Headlines, sub-heads, body, lead, captions, buttons, labels in non-mono contexts. If you don't know what to use, use this.</p>
+        <div class="uses">Web · PDF · Deck · Proposal</div>
+      </div>
+      <div class="where-tile">
+        <div class="lbl">Source Serif Italic</div>
+        <h5>One word per page · always cyan</h5>
+        <p>Lifts the diagnostic verb in headlines (<em style="font-family: var(--font-serif); color: var(--accent);">leaks</em>, <em style="font-family: var(--font-serif); color: var(--accent);">control</em>, <em style="font-family: var(--font-serif); color: var(--accent);">fix first</em>). Pull-quote bodies in PDFs. Never used in body or UI.</p>
+        <div class="uses">Headlines · pull-quotes</div>
+      </div>
+      <div class="where-tile">
+        <div class="lbl">JetBrains Mono</div>
+        <h5>Numbers, labels, structural meta</h5>
+        <p>Eyebrows, page numbers, percentages and currency in stats, navigation, tags, footnote refs. Never in headlines or body.</p>
+        <div class="uses">Eyebrows · stats · meta</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="card-section-title">Type scale · approved tokens</div>
+    <div class="scale">
+      <div class="scale-row"><div class="token">display<small>cover only</small></div><p class="specimen-text s-display">Operational systems</p><div class="props">96 / 91 · <span>−0.04em</span><br>Inter Tight 500</div></div>
+      <div class="scale-row"><div class="token">h1<small>page hero</small></div><p class="specimen-text s-h1">Why operational systems matter more than you think</p><div class="props">64 / 64 · <span>−0.035em</span><br>Inter Tight 500</div></div>
+      <div class="scale-row"><div class="token">h2<small>section opener</small></div><p class="specimen-text s-h2">Revenue leaks before, during, and after the job</p><div class="props">44 / 48 · <span>−0.025em</span><br>Inter Tight 500</div></div>
+      <div class="scale-row"><div class="token">h3<small>sub-section</small></div><p class="specimen-text s-h3">Six workflows that control margin</p><div class="props">32 / 38 · <span>−0.02em</span><br>Inter Tight 500</div></div>
+      <div class="scale-row"><div class="token">h4<small>card / row title</small></div><p class="specimen-text s-h4">Lead capture and response</p><div class="props">24 / 30 · <span>−0.01em</span><br>Inter Tight 600</div></div>
+      <div class="scale-row"><div class="token">lead<small>section deck</small></div><p class="specimen-text s-lead">The hidden revenue leaks in your sales pipeline, delivery process, and customer lifecycle.</p><div class="props">22 / 32 · Inter Tight 300</div></div>
+      <div class="scale-row"><div class="token">body-lg<small>document body</small></div><p class="specimen-text s-body-lg">Most service businesses don't have a sales problem. They have an operational problem, and it costs money at every stage of the business.</p><div class="props">18 / 29 · Inter Tight 400 · <span>PDF · longform</span></div></div>
+      <div class="scale-row"><div class="token">body<small>UI default</small></div><p class="specimen-text s-body">Engineers show up without clear scope and spend 30 to 60 minutes clarifying on site.</p><div class="props">16 / 25 · Inter Tight 400 · <span>Web · UI</span></div></div>
+      <div class="scale-row"><div class="token">caption<small>label / meta</small></div><p class="specimen-text s-caption">Figures based on patterns we see across trades, security, FM, and field service.</p><div class="props">13 / 20 · Inter Tight 400</div></div>
+      <div class="scale-row"><div class="token">eyebrow<small>section label</small></div><p class="specimen-text s-eyebrow">Before the job · sales and quoting</p><div class="props">11 · <span>+0.16em</span><br>JetBrains Mono 500</div></div>
+      <div class="scale-row"><div class="token">mono<small>stat / data</small></div><p class="specimen-text s-mono">£500k → £1m · 200 jobs / yr · 50 hrs unbilled</p><div class="props">13 / 20 · JetBrains Mono 400</div></div>
+      <div class="scale-row"><div class="token">flourish<small>1× per page</small></div><p class="specimen-text s-serif">leaks &nbsp;quietly</p><div class="props">64 italic · accent<br>Source Serif 4</div></div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="card-section-title">Stat & callout usage</div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+      <div style="background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px; padding: 28px;">
+        <div class="s-eyebrow" style="margin-bottom: 12px;">Conversion</div>
+        <div style="font-family: var(--font-sans); font-size: 56px; line-height: 1; letter-spacing: -0.03em; font-weight: 500; color: var(--text-primary);">42<span style="font-family: var(--font-mono); font-size: 24px; color: var(--text-muted); margin-left: 4px;">%</span></div>
+        <div class="s-caption" style="margin-top: 12px;">Quote-to-close, with auto follow-up</div>
+      </div>
+      <div style="background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px; padding: 28px;">
+        <div class="s-eyebrow" style="margin-bottom: 12px; color: var(--status-warning);">Margin loss</div>
+        <div style="font-family: var(--font-sans); font-size: 56px; line-height: 1; letter-spacing: -0.03em; font-weight: 500; color: var(--status-warning);">£100<span style="font-family: var(--font-mono); font-size: 24px; color: var(--text-muted); margin-left: 4px;">k / yr</span></div>
+        <div class="s-caption" style="margin-top: 12px;">During-job leakage, mid-size firm</div>
+      </div>
+      <div style="background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px; padding: 28px;">
+        <div class="s-eyebrow" style="margin-bottom: 12px; color: var(--status-success);">Recovered</div>
+        <div style="font-family: var(--font-sans); font-size: 56px; line-height: 1; letter-spacing: -0.03em; font-weight: 500; color: var(--status-success);">+50<span style="font-family: var(--font-mono); font-size: 24px; color: var(--text-muted); margin-left: 4px;">%</span></div>
+        <div class="s-caption" style="margin-top: 12px;">Repeat work rate, post follow-up</div>
+      </div>
+    </div>
+    <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6; margin: 16px 0 0;">→ Stat numbers use sans, not mono. Mono is for the unit suffix. Numbers are <strong style="color: var(--text-primary);">huge</strong> — they are the headline. Status colour applies only to the number, never to the eyebrow or caption.</p>
+  </section>
+
+  <section class="card-section">
+    <div class="card-section-title">In situ · PDF document body</div>
+    <div class="doc-spec">
+      <div>
+        <div class="eyebrow on-light">During the job</div>
+        <h2>Delivery and margin protection</h2>
+        <p>This is where most service businesses leak the most money — and often don't realise it. Engineers show up without clear scope and spend <strong>30 to 60 minutes</strong> clarifying on site.</p>
+        <p>Time on site isn't tracked, so you don't know if your estimates are accurate. Scope creep happens without approval or charge.</p>
+      </div>
+      <div>
+        <div class="pull"><p>These aren't effort problems. These are system and workflow problems.</p></div>
+        <p>Jobs run over without early warning. Scheduling is done ad hoc. Rework happens because original scope wasn't captured.</p>
+        <p style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-active); letter-spacing: 0.02em;">— £50k to £100k / year on a mid-size service business</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

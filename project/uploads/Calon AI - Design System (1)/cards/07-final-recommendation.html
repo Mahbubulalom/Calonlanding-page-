@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Calon — v1 Final Recommendation</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../card-shell.css">
+<style>
+  body { margin: 0; }
+  .hero {
+    margin: -64px -72px 64px;
+    padding: 96px 72px 80px;
+    background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-base) 100%);
+    border-bottom: 1px solid var(--border-default);
+    position: relative;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(900px 360px at 80% 0%, rgba(76,201,240,0.07), transparent 60%);
+    pointer-events: none;
+  }
+  .hero h1 {
+    font-size: 80px; line-height: 0.95; letter-spacing: -0.04em; font-weight: 500;
+    color: var(--text-primary); margin: 24px 0 24px; max-width: 16ch; position: relative;
+  }
+  .hero h1 em { font-family: var(--font-serif); font-style: italic; color: var(--accent); font-weight: 400; }
+  .hero p {
+    font-size: 19px; line-height: 1.55; color: var(--text-secondary);
+    max-width: 64ch; margin: 0; position: relative;
+  }
+  .hero-meta {
+    display: flex; gap: 48px; padding-top: 40px; margin-top: 56px;
+    border-top: 1px solid var(--border-default); position: relative;
+  }
+  .hero-meta .stat .lbl {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-muted);
+  }
+  .hero-meta .stat .val { color: var(--text-primary); font-size: 18px; margin-top: 6px; font-weight: 500; }
+  .hero-meta .stat .val em { font-family: var(--font-serif); font-style: italic; color: var(--accent); font-weight: 400; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+  .pillar {
+    background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px;
+    padding: 28px; display: flex; flex-direction: column; gap: 12px; min-height: 200px;
+  }
+  .pillar .num {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); border-top: 2px solid var(--accent); padding-top: 8px; width: fit-content;
+  }
+  .pillar h4 { margin: 4px 0 0; font-size: 19px; color: var(--text-primary); font-weight: 500; letter-spacing: -0.015em; }
+  .pillar p { margin: 0; font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
+
+  .ledger {
+    background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px;
+    overflow: hidden;
+  }
+  .ledger header {
+    display: grid; grid-template-columns: 60px 1.4fr 1.6fr 1fr;
+    padding: 14px 24px; background: var(--bg-base); border-bottom: 1px solid var(--border-default);
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted);
+  }
+  .ledger .row {
+    display: grid; grid-template-columns: 60px 1.4fr 1.6fr 1fr;
+    padding: 18px 24px; border-top: 1px solid var(--border-default); align-items: start;
+  }
+  .ledger .row:first-of-type { border-top: 0; }
+  .ledger .num {
+    font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em;
+  }
+  .ledger .name { font-size: 14px; color: var(--text-primary); font-weight: 500; }
+  .ledger .name small { display: block; color: var(--text-muted); font-weight: 400; margin-top: 4px; font-size: 12px; }
+  .ledger .desc { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+  .ledger .status {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);
+    text-align: right;
+  }
+
+  .open {
+    background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px;
+    padding: 24px 28px;
+    display: grid; grid-template-columns: 28px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .open .ic {
+    width: 22px; height: 22px; border: 1.5px solid var(--accent); border-radius: 50%; color: var(--accent);
+    display: flex; align-items: center; justify-content: center; font-family: var(--font-mono);
+    font-size: 12px; font-weight: 600; margin-top: 2px;
+  }
+  .open h5 { margin: 0 0 6px; font-size: 15px; color: var(--text-primary); font-weight: 600; }
+  .open p { margin: 0; font-size: 13px; line-height: 1.55; color: var(--text-secondary); }
+
+  .next-step {
+    background: var(--bg-secondary); border: 1px solid var(--border-default); border-radius: 6px;
+    padding: 32px;
+    display: grid; grid-template-columns: 60px 1fr auto;
+    gap: 24px; align-items: center;
+  }
+  .next-step .step-num {
+    width: 48px; height: 48px; border-radius: 50%;
+    border: 1.5px solid var(--accent); color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 16px; font-weight: 500;
+  }
+  .next-step h4 { margin: 0 0 6px; font-size: 18px; color: var(--text-primary); font-weight: 500; letter-spacing: -0.01em; }
+  .next-step p { margin: 0; font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
+  .next-step .meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); letter-spacing: 0.06em; }
+
+  .lock-line {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 24px; padding: 18px 24px;
+    background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px;
+    align-items: center;
+  }
+  .lock-line + .lock-line { margin-top: 8px; }
+  .lock-line .what { font-size: 14px; color: var(--text-primary); font-weight: 500; }
+  .lock-line .what small { display: block; color: var(--text-muted); font-weight: 400; margin-top: 4px; font-size: 12px; }
+
+  .keystone {
+    background: var(--bg-elevated); border: 1px solid var(--border-default); border-left: 3px solid var(--accent);
+    border-radius: 6px; padding: 28px 32px;
+  }
+  .keystone p {
+    margin: 0; font-family: var(--font-serif); font-style: italic;
+    font-size: 22px; line-height: 1.4; color: var(--text-primary); font-weight: 400;
+  }
+  .keystone p span { color: var(--accent); }
+</style>
+</head>
+<body class="card-root">
+<div class="card-shell">
+
+  <div class="hero">
+    <div class="eyebrow accent">v1 Final recommendation · 07</div>
+    <h1>Calon, locked. Ready to <em>operate.</em></h1>
+    <p>Six cards. One direction. A dark, editorial, operator-grade visual language that reads credible to founders of £500k–£5m service businesses — and prints cleanly to paper for the diagnostic guide. This card summarises what's locked, what's open, and what to build next.</p>
+
+    <div class="hero-meta">
+      <div class="stat"><div class="lbl">Direction</div><div class="val">Dark · editorial · <em>restrained</em></div></div>
+      <div class="stat"><div class="lbl">Surfaces</div><div class="val">Web · PDF · Deck</div></div>
+      <div class="stat"><div class="lbl">Components</div><div class="val">14 in v1</div></div>
+      <div class="stat"><div class="lbl">Document templates</div><div class="val">7 page types</div></div>
+      <div class="stat"><div class="lbl">Provisional</div><div class="val">Logo · case studies</div></div>
+    </div>
+  </div>
+
+  <section class="card-section">
+    <div class="card-section-title">The five pillars · why this system works</div>
+    <div class="grid-3" style="grid-template-columns: repeat(2, 1fr);">
+      <div class="pillar">
+        <div class="num">Pillar · 01</div>
+        <h4>Operator-grade, not marketing-grade</h4>
+        <p>Dark UI, mono labels, operational densities. Calon should look like a working tool, not a brochure. Founders trust the system before they trust the pitch.</p>
+      </div>
+      <div class="pillar">
+        <div class="num">Pillar · 02</div>
+        <h4>Restraint over decoration</h4>
+        <p>One accent. One serif word per page. No glow, no gradient hero, no neon. Restraint signals seniority — a rare quality in this category.</p>
+      </div>
+      <div class="pillar">
+        <div class="num">Pillar · 03</div>
+        <h4>Quantified, not aspirational</h4>
+        <p>Every claim ships with a number. Stat blocks, comparison tables, and margin-recovered figures are first-class components. Money is the unit.</p>
+      </div>
+      <div class="pillar">
+        <div class="num">Pillar · 04</div>
+        <h4>Editorial, not technical</h4>
+        <p>Reads like a smart trade publication, not a SaaS landing page. The Source Serif italic is the only flourish — used as a quiet underline on the operative word.</p>
+      </div>
+      <div class="pillar" style="grid-column: span 2;">
+        <div class="num">Pillar · 05 · keystone</div>
+        <h4>Built around an operational diagnostic, not a feature list</h4>
+        <p>The whole system is optimised for the lead-magnet diagnostic and the call it drives. Cards, callouts, checklists, and the "now → with Calon" comparison all serve the question: where is your money leaking, and what will you fix first?</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="card-section-title">What's locked in v1 · system inventory</div>
+    <div class="ledger">
+      <header>
+        <div>Card</div>
+        <div>What it covers</div>
+        <div>Locked outputs</div>
+        <div>Status</div>
+      </header>
+      <div class="row">
+        <div class="num">01</div>
+        <div class="name">Brand & voice<small>positioning · pillars · do/don't · CTA rules</small></div>
+        <div class="desc">Voice principles, "we say / we don't" table, three wordmark lockups (web · PDF · deck), CTA hierarchy.</div>
+        <div class="status">Locked</div>
+      </div>
+      <div class="row">
+        <div class="num">02</div>
+        <div class="name">Colour<small>dark surfaces · cyan accent · status</small></div>
+        <div class="desc">5 surfaces, 4 type tones, 2 borders, 4 accent steps, 3 status colours, paper + ink for PDF. Usage ratio: 70/22/6/2.</div>
+        <div class="status">Locked</div>
+      </div>
+      <div class="row">
+        <div class="num">03</div>
+        <div class="name">Typography<small>Inter Tight · JetBrains Mono · Source Serif</small></div>
+        <div class="desc">12-step type scale (display → mono), three families with strict role assignments, in-situ PDF body specimen.</div>
+        <div class="status">Locked</div>
+      </div>
+      <div class="row">
+        <div class="num">04</div>
+        <div class="name">Layout · spacing · motion<small>4px scale · grid frames · 3 motion durations</small></div>
+        <div class="desc">12-step spacing, page grids for web/PDF/deck, 5 radii, 3 shadows + hairline-accent, 3 motion timings.</div>
+        <div class="status">Locked</div>
+      </div>
+      <div class="row">
+        <div class="num">05</div>
+        <div class="name">Component library<small>14 components</small></div>
+        <div class="desc">Buttons (3), tag, metric (3 variants), proof, sector, process step, checklist row, comparison table, callout, testimonial, eyebrow, footer.</div>
+        <div class="status">Locked</div>
+      </div>
+      <div class="row">
+        <div class="num">06</div>
+        <div class="name">Document kit<small>7 A4 page templates</small></div>
+        <div class="desc">Cover · body (staged) · section opener · workflow breakdown · diagnostic checklist · proof page · CTA close.</div>
+        <div class="status">Locked</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="card-section-title">What's still open · before public launch</div>
+    <div class="grid-2">
+      <div class="open">
+        <div class="ic">!</div>
+        <div>
+          <h5>Real wordmark</h5>
+          <p>Currently a placeholder "C" tile + Calon sans lockup. Needs a real mark — ideally something that works at 16px favicon and 240px PDF cover.</p>
+        </div>
+      </div>
+      <div class="open">
+        <div class="ic">!</div>
+        <div>
+          <h5>Named case studies</h5>
+          <p>All proof copy is composite / provisional. Two named, quantified case studies (one trades, one FM) would unlock the proof page in production.</p>
+        </div>
+      </div>
+      <div class="open">
+        <div class="ic">!</div>
+        <div>
+          <h5>Photography direction</h5>
+          <p>System currently uses no imagery. Proposed: documentary, on-site, no stock — but needs a photographer brief and a small library before launch.</p>
+        </div>
+      </div>
+      <div class="open">
+        <div class="ic">!</div>
+        <div>
+          <h5>Iconography set</h5>
+          <p>Stage labels, status states, and process steps would benefit from a 1.5px line icon set (~16 glyphs). Currently using mono numerals as a placeholder.</p>
+        </div>
+      </div>
+      <div class="open">
+        <div class="ic">!</div>
+        <div>
+          <h5>Slide deck shell</h5>
+          <p>Type, colour, and layout grid all support 1920×1080 — but a master deck (title · section · stat · close) hasn't been built. Recommended next surface.</p>
+        </div>
+      </div>
+      <div class="open">
+        <div class="ic">!</div>
+        <div>
+          <h5>Email & invoice surfaces</h5>
+          <p>Outbound email signature, proposal cover, and invoice header should follow before client-facing rollout. Low effort, high consistency win.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="card-section-title">Decisions to confirm</div>
+    <div class="lock-line">
+      <div class="what">Sans family<small>Inter Tight is the workhorse. Alternatives considered: Söhne (premium, costlier), Geist (cleaner, less editorial).</small></div>
+      <div><span class="status-pill locked">Inter Tight</span></div>
+    </div>
+    <div class="lock-line">
+      <div class="what">Serif flourish<small>Source Serif 4 italic, used once per page on the operative word. Always cyan. Confirm before printing the lead magnet.</small></div>
+      <div><span class="status-pill locked">Source Serif 4</span></div>
+    </div>
+    <div class="lock-line">
+      <div class="what">Accent colour<small>Signal Cyan #4CC9F0 — restrained, not neon. Holds against dark navy with WCAG AA contrast on text-secondary surfaces.</small></div>
+      <div><span class="status-pill locked">#4CC9F0</span></div>
+    </div>
+    <div class="lock-line">
+      <div class="what">Document edition<small>2026 · v1. Re-set every 6 months when figures get refreshed. Edition mark lives in cover footer.</small></div>
+      <div><span class="status-pill provisional">Confirm cadence</span></div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="card-section-title">Recommended next steps · in order</div>
+    <div style="display: grid; gap: 12px;">
+      <div class="next-step">
+        <div class="step-num">01</div>
+        <div><h4>Produce the 9-page diagnostic guide</h4><p>Use the document kit as-is. Replace provisional copy block-by-block. Ship as a PDF lead magnet behind an email gate.</p></div>
+        <div class="meta">≈ 1 week</div>
+      </div>
+      <div class="next-step">
+        <div class="step-num">02</div>
+        <div><h4>Build the marketing site v1</h4><p>Hero + sectors + diagnostic CTA + footer. Re-uses every component in card 05. Single page, no nav menu.</p></div>
+        <div class="meta">≈ 2 weeks</div>
+      </div>
+      <div class="next-step">
+        <div class="step-num">03</div>
+        <div><h4>Run two real diagnostics, write two real case studies</h4><p>Replace every "PROVISIONAL" string with named, quantified outcomes. This is the highest-leverage thing to do for credibility.</p></div>
+        <div class="meta">≈ 6 weeks</div>
+      </div>
+      <div class="next-step">
+        <div class="step-num">04</div>
+        <div><h4>Build the outbound deck</h4><p>1920×1080 master, 8 slides. Title · problem · diagnostic · workflows · proof · process · pricing · close. Mirrors the PDF flow.</p></div>
+        <div class="meta">≈ 1 week</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="card-section-title">Keystone · the line the whole system supports</div>
+    <div class="keystone">
+      <p>Calon doesn't sell software, services, or AI. Calon sells the answer to one operational question: <span>where is your margin leaking,</span> and which workflow do you fix first?</p>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Calon — Brand & Voice · v1</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../card-shell.css">
+<style>
+  body { margin: 0; }
+
+  .hero {
+    background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-base) 100%);
+    margin: -64px -72px 64px;
+    padding: 96px 72px 80px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-default);
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(60% 80% at 100% 0%, rgba(76,201,240,0.06), transparent 60%);
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; max-width: 980px; }
+  .wordmark {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: var(--font-sans);
+    font-size: 22px; font-weight: 600; letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+  .wordmark .mark {
+    width: 28px; height: 28px;
+    border: 1.5px solid var(--accent);
+    border-radius: 4px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 13px; font-weight: 600;
+  }
+  .hero h1 {
+    font-family: var(--font-sans);
+    font-size: 80px;
+    line-height: 0.96;
+    letter-spacing: var(--tk-display);
+    font-weight: 500;
+    margin: 64px 0 28px;
+    color: var(--text-primary);
+    max-width: 18ch;
+  }
+  .hero h1 em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+  .hero .lead {
+    font-size: 22px;
+    line-height: 1.45;
+    color: var(--text-secondary);
+    max-width: 60ch;
+    margin: 0;
+    font-weight: 300;
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+  /* Positioning block */
+  .pos-block {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    padding: 40px;
+    position: relative;
+  }
+  .pos-block .label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: var(--tk-eyebrow);
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .pos-block p {
+    font-family: var(--font-serif);
+    font-size: 26px;
+    line-height: 1.35;
+    color: var(--text-primary);
+    margin: 0;
+    font-weight: 400;
+  }
+  .pos-block p strong {
+    font-family: var(--font-sans);
+    font-style: normal;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  /* Pillars */
+  .pillar {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: 6px;
+    padding: 28px;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .pillar .num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .pillar h3 {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.015em;
+    margin: 4px 0 0;
+    line-height: 1.2;
+  }
+  .pillar p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin: auto 0 0;
+  }
+
+  /* Voice table */
+  .voice-table { border-top: 1px solid var(--border-default); }
+  .voice-row {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr;
+    border-bottom: 1px solid var(--border-default);
+    padding: 24px 0;
+    gap: 32px;
+    align-items: start;
+  }
+  .voice-row .lbl {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: var(--tk-eyebrow);
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding-top: 4px;
+  }
+  .voice-row .lbl small {
+    display: block;
+    margin-top: 6px;
+    color: var(--text-subtle);
+    font-size: 10px;
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 1.5;
+  }
+  .voice-row .we, .voice-row .not {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .voice-row .we { color: var(--text-primary); }
+  .voice-row .we::before {
+    content: "✓";
+    color: var(--status-success);
+    font-weight: 700;
+    margin-right: 10px;
+  }
+  .voice-row .not { color: var(--text-muted); }
+  .voice-row .not::before {
+    content: "✕";
+    color: var(--status-warning);
+    margin-right: 10px;
+    font-weight: 600;
+  }
+
+  /* Headline samples */
+  .head-sample {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: 6px;
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .head-sample .meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: var(--tk-eyebrow);
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .head-sample h4 {
+    margin: 0;
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+    color: var(--text-primary);
+    max-width: 28ch;
+  }
+  .head-sample h4 em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+  .head-sample .rule-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-default);
+  }
+
+  /* CTA samples */
+  .cta-sample {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: 6px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .cta-sample .meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: var(--tk-eyebrow); text-transform: uppercase; color: var(--accent); }
+  .cta-sample .copy { font-size: 16px; color: var(--text-primary); line-height: 1.4; font-weight: 500; }
+  .cta-sample .sub { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .cta-sample .btn {
+    align-self: start;
+    margin-top: 8px;
+    display: inline-flex; gap: 8px; align-items: center;
+    background: var(--accent); color: var(--bg-base);
+    padding: 12px 18px; border-radius: 4px;
+    font-size: 14px; font-weight: 600; letter-spacing: -0.005em;
+    border: 0; cursor: pointer; font-family: inherit;
+  }
+  .cta-sample .btn .arr { font-family: var(--font-mono); font-weight: 400; }
+
+  /* Wordmark surfaces */
+  .marks {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border-default);
+    border: 1px solid var(--border-default);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .mark-tile {
+    padding: 48px 24px;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 160px;
+  }
+  .mark-tile.dark    { background: var(--bg-base); }
+  .mark-tile.elev    { background: var(--bg-elevated); }
+  .mark-tile.accent  { background: var(--accent); }
+  .mark-tile .wm {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 26px; font-weight: 600; letter-spacing: -0.02em;
+  }
+  .mark-tile .wm .mk {
+    width: 30px; height: 30px;
+    border-radius: 5px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 14px; font-weight: 600;
+  }
+  .mark-tile.dark .wm    { color: var(--text-primary); }
+  .mark-tile.dark .wm .mk{ border: 1.5px solid var(--accent); color: var(--accent); }
+  .mark-tile.elev .wm    { color: var(--text-primary); }
+  .mark-tile.elev .wm .mk{ background: var(--accent); color: var(--bg-base); }
+  .mark-tile.accent .wm  { color: var(--bg-base); }
+  .mark-tile.accent .wm .mk { background: var(--bg-base); color: var(--accent); }
+</style>
+</head>
+<body class="card-root">
+<div class="card-shell">
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="wordmark"><span class="mark">C</span>Calon</div>
+      <h1>Operational systems for businesses that <em>already win.</em></h1>
+      <p class="lead">Calon builds operational systems and automation for founder-led service businesses — trades, security, FM, field service, hospitality. We replace manual bottlenecks with infrastructure that protects margin, sharpens visibility, and reduces founder dependency.</p>
+    </div>
+  </div>
+
+  <!-- Status header -->
+  <div class="card-header">
+    <div>
+      <div class="eyebrow accent">Brand & voice · v1</div>
+      <div class="card-title">Brand foundation</div>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <span class="status-pill locked">v1 locked</span>
+      <span class="status-pill approved">Approved</span>
+    </div>
+  </div>
+
+  <!-- ===== POSITIONING ===== -->
+  <section class="card-section">
+    <div class="card-section-title">Positioning statement · approved v1</div>
+    <div class="pos-block">
+      <div class="label">Calon helps</div>
+      <p><strong>founder-led service businesses</strong> replace manual bottlenecks with tailored systems and automation that improve <strong>speed, visibility, efficiency, and commercial performance</strong> — without hiring more people, working harder, or buying software they won't use.</p>
+    </div>
+  </section>
+
+  <!-- ===== BRAND SUMMARY ===== -->
+  <section class="card-section">
+    <div class="grid-2" style="align-items: start; gap: 64px;">
+      <div>
+        <div class="card-section-title" style="margin-bottom: 16px;">Brand summary</div>
+        <p style="font-size: 18px; line-height: 1.6; color: var(--text-secondary); margin: 0 0 16px; max-width: 56ch;">Calon is operational infrastructure, not an AI agency. We sell <strong style="color: var(--text-primary);">outcomes</strong> — reduced admin, faster response times, better visibility, cleaner workflows, tighter operations, better commercial performance.</p>
+        <p style="font-size: 18px; line-height: 1.6; color: var(--text-secondary); margin: 0; max-width: 56ch;">The brand should feel <strong style="color: var(--text-primary);">practical, commercial, credible, founder-friendly, premium but not flashy</strong>. Modern editorial — not tech hype. Dark, sharp, clear, confident.</p>
+      </div>
+      <div>
+        <div class="card-section-title" style="margin-bottom: 16px;">Audience</div>
+        <div style="border-top: 1px solid var(--border-default);">
+          <div style="display: grid; grid-template-columns: 100px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border-default);"><div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);">Core</div><div style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">Security · FM · field service · trades · contractors · hospitality / venues</div></div>
+          <div style="display: grid; grid-template-columns: 100px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border-default);"><div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted);">Secondary</div><div style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">Recruitment · property · training · other founder-led service businesses with operational friction</div></div>
+          <div style="display: grid; grid-template-columns: 100px 1fr; gap: 16px; padding: 14px 0;"><div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted);">Reader</div><div style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">£500k–£5m revenue · founder still in the work · skeptical of generic SaaS</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PILLARS ===== -->
+  <section class="card-section">
+    <div class="card-section-title">Brand pillars</div>
+    <div class="grid-4">
+      <div class="pillar">
+        <div class="num">01 / Operational</div>
+        <h3>Systems, not software.</h3>
+        <p>We talk in workflows, handovers, scope, utilisation — the language of running the business. Tooling is downstream of the system.</p>
+      </div>
+      <div class="pillar">
+        <div class="num">02 / Specific</div>
+        <h3>Numbers, not adjectives.</h3>
+        <p>Never "improve efficiency". Always "30 to 60 minutes lost to scope clarification on site." Specific enough that the reader recognises their own week.</p>
+      </div>
+      <div class="pillar">
+        <div class="num">03 / Operator-grade</div>
+        <h3>Founder to founder.</h3>
+        <p>We write like an operator who has run a service business — not a marketer who reads about them. Direct, unpadded, no buzzwords.</p>
+      </div>
+      <div class="pillar">
+        <div class="num">04 / Commercial</div>
+        <h3>Margin is the metric.</h3>
+        <p>Every claim ties back to a P&L impact. Speed, visibility, and efficiency are means — protected margin is the end.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TONE OF VOICE PRINCIPLES ===== -->
+  <section class="card-section">
+    <div class="card-section-title">Tone of voice · five principles</div>
+    <div class="grid-3" style="grid-template-columns: repeat(5, 1fr);">
+      <div class="pillar" style="min-height: 180px;">
+        <div class="num">01</div>
+        <h3 style="font-size: 18px;">Direct</h3>
+        <p style="font-size: 13px;">Short sentences. The reader is busy. Earn the next line.</p>
+      </div>
+      <div class="pillar" style="min-height: 180px;">
+        <div class="num">02</div>
+        <h3 style="font-size: 18px;">Specific</h3>
+        <p style="font-size: 13px;">Real numbers, named workflows, concrete frictions.</p>
+      </div>
+      <div class="pillar" style="min-height: 180px;">
+        <div class="num">03</div>
+        <h3 style="font-size: 18px;">Diagnostic</h3>
+        <p style="font-size: 13px;">Show you understand the problem before pitching the fix.</p>
+      </div>
+      <div class="pillar" style="min-height: 180px;">
+        <div class="num">04</div>
+        <h3 style="font-size: 18px;">Restrained</h3>
+        <p style="font-size: 13px;">No hype, no exclamation marks, no AI-grandstanding.</p>
+      </div>
+      <div class="pillar" style="min-height: 180px;">
+        <div class="num">05</div>
+        <h3 style="font-size: 18px;">Useful</h3>
+        <p style="font-size: 13px;">Every page should change something the reader does on Monday.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VOICE: DO / DON'T ===== -->
+  <section class="card-section">
+    <div class="card-section-title">Do / don't · language examples</div>
+    <div class="voice-table">
+      <div class="voice-row">
+        <div class="lbl">Diagnosis<small>Naming the problem</small></div>
+        <div class="we">"The quote took longer than it should have. Two follow-ups before they said yes."</div>
+        <div class="not">"Streamline your sales velocity with AI-powered lead intelligence."</div>
+      </div>
+      <div class="voice-row">
+        <div class="lbl">Quantifying<small>Margin claims</small></div>
+        <div class="we">"On 200 jobs per year, that's 50 hours of unbilled work."</div>
+        <div class="not">"Significant productivity gains across the organisation."</div>
+      </div>
+      <div class="voice-row">
+        <div class="lbl">CTA<small>Asking for the call</small></div>
+        <div class="we">"30 to 45 minutes. No sales pitch. Just clarity on which workflow to fix first."</div>
+        <div class="not">"Book a free strategy session and unlock your potential."</div>
+      </div>
+      <div class="voice-row">
+        <div class="lbl">Authority<small>Stating the thesis</small></div>
+        <div class="we">"These aren't effort problems. These are system and workflow problems."</div>
+        <div class="not">"Leverage cutting-edge solutions to transform your business."</div>
+      </div>
+      <div class="voice-row">
+        <div class="lbl">Capability<small>What we do</small></div>
+        <div class="we">"We build systems around how your business actually works."</div>
+        <div class="not">"We deploy AI agents to automate your business end-to-end."</div>
+      </div>
+      <div class="voice-row">
+        <div class="lbl">Outcomes<small>What you get</small></div>
+        <div class="we">"Faster quotes. Cleaner handovers. Visibility on every job. Margin you can see."</div>
+        <div class="not">"Next-generation operational excellence at scale."</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HEADLINE STYLE RULES ===== -->
+  <section class="card-section">
+    <div class="card-section-title">Headline style rules</div>
+
+    <div class="grid-3" style="grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 24px;">
+      <div class="head-sample">
+        <div class="meta">Pattern · diagnostic</div>
+        <h4>Most service businesses don't have a sales problem. They have an <em>operational</em> one.</h4>
+        <div class="rule-tag">Two-clause structure · italic serif on the diagnosis word · lowercase</div>
+      </div>
+      <div class="head-sample">
+        <div class="meta">Pattern · margin claim</div>
+        <h4>Margin <em>leaks</em> at every stage of the job.</h4>
+        <div class="rule-tag">Single-line · short · noun-led · serif italic for the verb</div>
+      </div>
+      <div class="head-sample">
+        <div class="meta">Pattern · workflow</div>
+        <h4>Six workflows that quietly <em>control</em> your margin.</h4>
+        <div class="rule-tag">Number-anchored · names what's at stake · no hype</div>
+      </div>
+      <div class="head-sample">
+        <div class="meta">Pattern · CTA close</div>
+        <h4>Now decide which workflow to <em>fix first.</em></h4>
+        <div class="rule-tag">Action verb · directive · italic on the decisive word</div>
+      </div>
+    </div>
+
+    <div style="background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px; padding: 24px 28px;">
+      <div class="eyebrow accent" style="margin-bottom: 12px;">Rules · approved</div>
+      <ul style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 32px;">
+        <li style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">→ Sentence case. Never Title Case Like This.</li>
+        <li style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">→ Italic serif lifts <em style="font-family: var(--font-serif); color: var(--accent);">one</em> word per headline. Never two.</li>
+        <li style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">→ Max 14 words. Most should be 6–10.</li>
+        <li style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">→ End with a period — these are statements, not questions.</li>
+        <li style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">→ Numbers belong in the headline (six, 25%, £50k).</li>
+        <li style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">→ Never use "AI", "leverage", "unlock", "transform", "powered by".</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== CTA RULES ===== -->
+  <section class="card-section">
+    <div class="card-section-title">CTA style rules</div>
+    <div class="grid-3">
+      <div class="cta-sample">
+        <div class="meta">Primary · diagnostic</div>
+        <div class="copy">Book the free operational diagnostic.</div>
+        <div class="sub">30 to 45 minutes. No sales pitch. Just clarity on which workflow to fix first.</div>
+        <button class="btn">Book the call <span class="arr">→</span></button>
+      </div>
+      <div class="cta-sample">
+        <div class="meta">Secondary · resource</div>
+        <div class="copy">Read the operational leakage guide.</div>
+        <div class="sub">9 pages · 12 minutes · the six workflows that quietly squeeze margin.</div>
+        <button class="btn" style="background: transparent; color: var(--text-primary); border: 1px solid var(--border-strong);">Open the guide <span class="arr">→</span></button>
+      </div>
+      <div class="cta-sample">
+        <div class="meta">Inline · text link</div>
+        <div class="copy">See how a £500k firm recovers £80k in 12 weeks.</div>
+        <div class="sub">Anonymised case · single workflow rebuild · no software bought.</div>
+        <a style="font-size: 14px; color: var(--accent); border-bottom: 1px solid var(--accent); padding-bottom: 2px; align-self: start; text-decoration: none; font-weight: 500;">Read the case →</a>
+      </div>
+    </div>
+    <div style="margin-top: 24px; background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px; padding: 24px 28px;">
+      <div class="eyebrow accent" style="margin-bottom: 12px;">Rules · approved</div>
+      <ul style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 32px;">
+        <li style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">→ Lead with the verb. "Book the call." not "Get started."</li>
+        <li style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">→ Always promise the cost (time/effort), not just the benefit.</li>
+        <li style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">→ One primary CTA per page. Period.</li>
+        <li style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">→ Sub-line under every primary CTA — what they're agreeing to.</li>
+        <li style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">→ "No sales pitch." appears verbatim on the diagnostic CTA.</li>
+        <li style="font-size: 14px; color: var(--text-secondary); line-height: 1.6;">→ Never "Get in touch." Always name the next action.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== WORDMARK ===== -->
+  <section class="card-section">
+    <div class="grid-2" style="grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: start;">
+      <div>
+        <div class="card-section-title">Wordmark · provisional</div>
+        <p style="font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin: 0 0 16px;">A simple geometric "C" mark in cyan, paired with the wordmark in Inter Tight 600. <strong style="color: var(--status-warning);">PROVISIONAL — SWAP WHEN BRAND ASSET IS PROVIDED.</strong> Provided here so the system has a working lockup across all surfaces.</p>
+        <span class="status-pill provisional">Provisional</span>
+      </div>
+      <div class="marks">
+        <div class="mark-tile dark"><div class="wm"><span class="mk">C</span>Calon</div></div>
+        <div class="mark-tile elev"><div class="wm"><span class="mk">C</span>Calon</div></div>
+        <div class="mark-tile accent"><div class="wm"><span class="mk">C</span>Calon</div></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

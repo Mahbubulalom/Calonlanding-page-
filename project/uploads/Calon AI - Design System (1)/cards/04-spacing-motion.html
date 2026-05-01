@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Calon — Layout, Spacing & Motion · v1</title>
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../card-shell.css">
+<style>
+  body { margin: 0; }
+  .grid-2 { display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+  /* Spacing scale */
+  .scale-table { border-top: 1px solid var(--border-default); }
+  .scale-row {
+    display: grid; grid-template-columns: 80px 80px 1fr 140px;
+    align-items: center; gap: 16px;
+    padding: 14px 0; border-bottom: 1px solid var(--border-default);
+  }
+  .scale-row .token { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+  .scale-row .px { font-family: var(--font-mono); font-size: 13px; color: var(--text-primary); }
+  .scale-row .bar-wrap { background: var(--bg-overlay); height: 14px; border-radius: 2px; }
+  .scale-row .bar { height: 100%; background: var(--accent); border-radius: 2px; }
+  .scale-row .use { font-size: 12px; color: var(--text-muted); text-align: right; }
+
+  /* Radii */
+  .radii { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  .radius-tile {
+    aspect-ratio: 1;
+    background: var(--bg-elevated); border: 1px solid var(--border-default);
+    display: flex; align-items: flex-end; padding: 16px;
+    color: var(--text-primary);
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .radius-tile .meta { color: var(--text-muted); margin-left: 8px; }
+
+  /* Shadows */
+  .shadows { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .shadow-tile { background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px; padding: 32px 20px 24px; text-align: center; }
+  .shadow-tile .swatch { width: 100%; height: 100px; background: var(--bg-overlay); border-radius: 4px; margin-bottom: 24px; border: 1px solid var(--border-default); }
+  .shadow-tile .name { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+  .shadow-tile .role { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); letter-spacing: 0.06em; }
+
+  /* Motion */
+  .motion-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .motion-tile {
+    border: 1px solid var(--border-default); background: var(--bg-elevated);
+    border-radius: 6px; padding: 24px; min-height: 180px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .motion-tile h4 { margin: 0 0 6px; font-size: 16px; color: var(--text-primary); font-weight: 600; }
+  .motion-tile .meta { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.04em; }
+  .motion-track { position: relative; height: 6px; background: var(--bg-overlay); border-radius: 4px; margin: 24px 0; }
+  .motion-dot { position: absolute; top: -5px; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); }
+  .m-fast .motion-dot { animation: slide var(--dur-fast) var(--ease-std) infinite alternate; }
+  .m-base .motion-dot { animation: slide var(--dur-base) var(--ease-std) infinite alternate; }
+  .m-slow .motion-dot { animation: slide var(--dur-slow) var(--ease-emp) infinite alternate; }
+  @keyframes slide { from { left: 0; } to { left: calc(100% - 16px); } }
+  .motion-tile .desc { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+
+  /* Layout rules */
+  .rules-block { background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: 6px; padding: 28px 32px; }
+  .rules-block h4 { margin: 0 0 12px; font-size: 16px; color: var(--text-primary); font-weight: 600; }
+  .rules-block ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .rules-block li { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+  .rules-block li b { color: var(--text-primary); font-weight: 500; }
+
+  /* Section frame demo */
+  .frame-demo {
+    border: 1px solid var(--border-default); border-radius: 6px; overflow: hidden; background: var(--bg-elevated);
+  }
+  .frame-demo .head {
+    padding: 16px 20px; border-bottom: 1px solid var(--border-default);
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+    display: flex; justify-content: space-between;
+  }
+  .frame-demo .body { padding: 24px; }
+  .frame-demo .body h5 { margin: 0 0 6px; font-size: 18px; color: var(--text-primary); font-weight: 500; letter-spacing: -0.01em; }
+  .frame-demo .body p { margin: 0; font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+</style>
+</head>
+<body class="card-root">
+<div class="card-shell">
+
+  <div class="card-header">
+    <div>
+      <div class="eyebrow accent">Foundations · 04</div>
+      <div class="card-title">Layout, spacing & motion</div>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <span class="status-pill locked">v1 locked</span>
+    </div>
+  </div>
+
+  <section class="card-section">
+    <div class="grid-2">
+      <div>
+        <div class="card-section-title">Spacing rhythm · 4px base</div>
+        <div class="scale-table">
+          <div class="scale-row"><div class="token">s-1</div><div class="px">4 px</div><div class="bar-wrap"><div class="bar" style="width: 3%"></div></div><div class="use">inline gaps</div></div>
+          <div class="scale-row"><div class="token">s-2</div><div class="px">8 px</div><div class="bar-wrap"><div class="bar" style="width: 6%"></div></div><div class="use">tight stack</div></div>
+          <div class="scale-row"><div class="token">s-3</div><div class="px">12 px</div><div class="bar-wrap"><div class="bar" style="width: 9%"></div></div><div class="use">label → value</div></div>
+          <div class="scale-row"><div class="token">s-4</div><div class="px">16 px</div><div class="bar-wrap"><div class="bar" style="width: 13%"></div></div><div class="use">UI default</div></div>
+          <div class="scale-row"><div class="token">s-5</div><div class="px">20 px</div><div class="bar-wrap"><div class="bar" style="width: 16%"></div></div><div class="use">card padding</div></div>
+          <div class="scale-row"><div class="token">s-6</div><div class="px">24 px</div><div class="bar-wrap"><div class="bar" style="width: 20%"></div></div><div class="use">paragraph gap</div></div>
+          <div class="scale-row"><div class="token">s-7</div><div class="px">32 px</div><div class="bar-wrap"><div class="bar" style="width: 26%"></div></div><div class="use">card · grid gutter</div></div>
+          <div class="scale-row"><div class="token">s-8</div><div class="px">40 px</div><div class="bar-wrap"><div class="bar" style="width: 33%"></div></div><div class="use">block break</div></div>
+          <div class="scale-row"><div class="token">s-9</div><div class="px">48 px</div><div class="bar-wrap"><div class="bar" style="width: 40%"></div></div><div class="use">section start</div></div>
+          <div class="scale-row"><div class="token">s-10</div><div class="px">64 px</div><div class="bar-wrap"><div class="bar" style="width: 53%"></div></div><div class="use">document margin</div></div>
+          <div class="scale-row"><div class="token">s-11</div><div class="px">80 px</div><div class="bar-wrap"><div class="bar" style="width: 66%"></div></div><div class="use">page top pad</div></div>
+          <div class="scale-row"><div class="token">s-12</div><div class="px">96 px</div><div class="bar-wrap"><div class="bar" style="width: 80%"></div></div><div class="use">section interval (web)</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card-section-title">Page · grid frames</div>
+        <div style="display: grid; gap: 16px;">
+          <div class="frame-demo">
+            <div class="head"><span>Web · sections</span><span>1280 max</span></div>
+            <div class="body">
+              <h5>12-col · 32 px gutter · 96 px section interval</h5>
+              <p>Page padding 72 px desktop, 32 px tablet, 24 px mobile. Body width 1180 px max. Headlines align to col 1; lead text to col 2 for indent rhythm.</p>
+            </div>
+          </div>
+          <div class="frame-demo">
+            <div class="head"><span>PDF · documents</span><span>A4 · 816 × 1056</span></div>
+            <div class="body">
+              <h5>64 px page margin · 24 px gutter · single column body</h5>
+              <p>Body column 688 px / ≈68 ch. Two-column allowed for stat grids and pull-quotes. Page header + footer use mono caption (11px) with 32 px breathing space.</p>
+            </div>
+          </div>
+          <div class="frame-demo">
+            <div class="head"><span>Deck · slides</span><span>1920 × 1080</span></div>
+            <div class="body">
+              <h5>120 px slide margin · 48 px gutter · 12-col</h5>
+              <p>Display type at 96–120 px. Body min 28 px. Always anchor headline to lower-left or upper-left third for editorial weight.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="card-section-title">Density · approved use</div>
+    <div class="grid-3">
+      <div class="rules-block">
+        <h4>Calm density</h4>
+        <ul>
+          <li>→ <b>Marketing site, hero, PDF cover.</b> 96 px between sections, 64 px page margin, generous line-height 1.6.</li>
+          <li>→ Goal: feel premium, expensive, considered.</li>
+        </ul>
+      </div>
+      <div class="rules-block">
+        <h4>Editorial density</h4>
+        <ul>
+          <li>→ <b>PDF body, longform pages, blog.</b> 56 px between sub-sections, 40 px between paragraphs of distinct ideas.</li>
+          <li>→ Goal: read like a credible operator's working document.</li>
+        </ul>
+      </div>
+      <div class="rules-block">
+        <h4>Operator density</h4>
+        <ul>
+          <li>→ <b>Tables, checklists, stat grids, dashboards.</b> 14–16 px row padding, 13 px caption, mono labels.</li>
+          <li>→ Goal: feel like a tool, not a brochure.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="card-section-title">Radii · operational, not soft</div>
+    <div class="radii">
+      <div class="radius-tile" style="border-radius: 0;">r-0 <span class="meta">0 · rule</span></div>
+      <div class="radius-tile" style="border-radius: 2px;">r-1 <span class="meta">2 · chips</span></div>
+      <div class="radius-tile" style="border-radius: 4px;">r-2 <span class="meta">4 · buttons</span></div>
+      <div class="radius-tile" style="border-radius: 6px;">r-3 <span class="meta">6 · cards</span></div>
+      <div class="radius-tile" style="border-radius: 8px;">r-4 <span class="meta">8 · large surface</span></div>
+    </div>
+    <p style="font-size: 13px; color: var(--text-muted); margin-top: 16px; line-height: 1.6;">→ No pill-shaped buttons. No soft 16+ px radii. Operator-grade UI uses 4–6 px corners. Tags may use full pill (999) at small sizes only.</p>
+  </section>
+
+  <section class="card-section">
+    <div class="card-section-title">Shadows · restraint replaces glow</div>
+    <div class="shadows">
+      <div class="shadow-tile">
+        <div class="swatch" style="box-shadow: var(--shadow-1);"></div>
+        <div class="name">shadow-1</div>
+        <div class="role">subtle lift · default card</div>
+      </div>
+      <div class="shadow-tile">
+        <div class="swatch" style="box-shadow: var(--shadow-2);"></div>
+        <div class="name">shadow-2</div>
+        <div class="role">hover · interactive</div>
+      </div>
+      <div class="shadow-tile">
+        <div class="swatch" style="box-shadow: var(--shadow-3);"></div>
+        <div class="name">shadow-3</div>
+        <div class="role">overlay · modal</div>
+      </div>
+      <div class="shadow-tile">
+        <div class="swatch" style="box-shadow: 0 0 0 1px var(--accent-soft);"></div>
+        <div class="name">hairline-accent</div>
+        <div class="role">accent emphasis · no glow</div>
+      </div>
+    </div>
+    <p style="font-size: 13px; color: var(--text-muted); margin-top: 16px; line-height: 1.6;">→ Never glow effects. Where emphasis is needed, use a 1px accent hairline border. Shadows on dark are deeper, blacker — they communicate weight, not light.</p>
+  </section>
+
+  <section class="card-section">
+    <div class="card-section-title">Motion · decisive, never decorative</div>
+    <div class="motion-grid">
+      <div class="motion-tile m-fast"><div><h4>fast · 120ms</h4><div class="meta">ease-std</div></div><div class="motion-track"><div class="motion-dot"></div></div><div class="desc">Hover, focus, micro-feedback.</div></div>
+      <div class="motion-tile m-base"><div><h4>base · 200ms</h4><div class="meta">ease-std</div></div><div class="motion-track"><div class="motion-dot"></div></div><div class="desc">Reveal, expand, default UI transition.</div></div>
+      <div class="motion-tile m-slow"><div><h4>slow · 320ms</h4><div class="meta">ease-emp</div></div><div class="motion-track"><div class="motion-dot"></div></div><div class="desc">Page-level transitions only.</div></div>
+    </div>
+    <p style="font-size: 13px; color: var(--text-muted); margin-top: 16px; line-height: 1.6;">→ Motion confirms causality. Never narrates. No bouncing, no parallax, no scroll-jacked storytelling. Respect <code style="font-family: var(--font-mono); background: var(--bg-overlay); padding: 1px 6px; border-radius: 2px; color: var(--accent);">prefers-reduced-motion</code> universally.</p>
+  </section>
+
+</div>
+</body>
+</html>

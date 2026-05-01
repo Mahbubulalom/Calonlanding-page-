@@ -1,0 +1,76 @@
+/* Shared card frame for design system review cards · dark v1 */
+.card-shell {
+  min-height: 100vh;
+  padding: 64px 72px 96px;
+  background: var(--bg-base);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+}
+.card-shell .card-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 24px;
+  margin-bottom: 48px;
+  border-bottom: 1px solid var(--border-default);
+}
+.card-shell .card-title {
+  font-size: 36px;
+  letter-spacing: var(--tk-tight);
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.05;
+}
+.card-shell .card-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--tk-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.card-shell .card-section + .card-section { margin-top: 64px; }
+.card-shell .card-section-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--tk-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.card-shell .card-section-title::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+  display: inline-block;
+}
+
+/* Status pill — used inline for "approved", "provisional" etc */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-default);
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.status-pill::before {
+  content: "";
+  width: 6px; height: 6px;
+  background: currentColor;
+  border-radius: 50%;
+  opacity: 0.7;
+}
+.status-pill.approved   { color: var(--status-success); border-color: rgba(92,194,138,0.3); }
+.status-pill.provisional{ color: var(--status-warning); border-color: rgba(214,138,60,0.3); }
+.status-pill.locked     { color: var(--accent); border-color: rgba(76,201,240,0.3); }
