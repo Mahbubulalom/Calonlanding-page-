@@ -97,157 +97,43 @@ const Proof = () => {
 };
 
 const CTA = () => {
-  const [email, setEmail] = React.useState('');
-  const [company, setCompany] = React.useState('');
-  const [revenue, setRevenue] = React.useState('');
-  const [submitted, setSubmitted] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState(false);
-
-  const submit = async (e) => {
-    e.preventDefault();
-    if (!email || !company) return;
-    setLoading(true);
-    setError(false);
-    try {
-      await window.sendLeadEmail({
-        form_type:    'Diagnostic Booking',
-        from_email:   email,
-        company:      company,
-        revenue:      revenue || 'Not specified',
-        name:         '',
-        sector:       '',
-        bottleneck:   '',
-        to_emails:    'fab@calonaisolutions.com, alom@calonaisolutions.com',
-      });
-      setSubmitted(true);
-    } catch (err) {
-      console.error('Email send failed:', err);
-      setError(true);
-    }
-    setLoading(false);
-  };
-
   return (
     <section className="section cta-section" id="diagnostic">
       <div className="cta-bg">
         <div className="cta-grid"></div>
       </div>
-      <div className="section-inner cta-inner">
-        <div className="cta-left">
-          <div className="eyebrow-row">
-            <span className="num-tag accent">05</span>
-            <span className="eyebrow accent">The diagnostic call</span>
-          </div>
-          <h2 className="cta-h2">
-            Now decide which workflow to <em>fix first.</em>
-          </h2>
-          <p className="cta-lead">
-            30 to 45 minutes. No deck, no sales pitch. We map your workflow, name the biggest leak, and put a number on it. You leave with a one-page diagnostic, whether or not we ever work together.
-          </p>
-          <ul className="cta-list">
-            <li><span className="li-check">✓</span> A live workflow map of your business, six stages</li>
-            <li><span className="li-check">✓</span> The single highest-leakage workflow, quantified in £</li>
-            <li><span className="li-check">✓</span> A one-page recovery plan you can act on Monday</li>
-            <li><span className="li-check">✓</span> No follow-up unless you ask for one</li>
-          </ul>
+      <div className="section-inner cta-inner cta-inner--simple">
+        <div className="cta-simple-badge">
+          <span className="form-pulse"></span>
+          Booking open · Q2 2026
         </div>
 
-        <div className="cta-right">
-          {!submitted ? (
-            <form className="cta-form" onSubmit={submit}>
-              <div className="form-head">
-                <span className="form-eyebrow">Diagnostic intake · 60 sec</span>
-                <span className="form-status">
-                  <span className="form-pulse"></span>
-                  Booking · Q2 2026
-                </span>
-              </div>
+        <h2 className="cta-h2 cta-h2--center">
+          Now decide which workflow to <em>fix first.</em>
+        </h2>
 
-              <label className="field">
-                <span className="field-label">Work email</span>
-                <input
-                  type="email"
-                  required
-                  placeholder="founder@company.co.uk"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </label>
+        <p className="cta-lead cta-lead--center">
+          30 to 45 minutes. No deck, no sales pitch. We map your workflow, name the biggest leak, and put a number on it. You leave with a one-page diagnostic, whether or not we ever work together.
+        </p>
 
-              <label className="field">
-                <span className="field-label">Company</span>
-                <input
-                  type="text"
-                  required
-                  placeholder="Your company name"
-                  value={company}
-                  onChange={(e) => setCompany(e.target.value)}
-                />
-              </label>
+        <ul className="cta-list cta-list--row">
+          <li><span className="li-check">✓</span> Live workflow map · six stages</li>
+          <li><span className="li-check">✓</span> Highest-leakage workflow quantified in £</li>
+          <li><span className="li-check">✓</span> One-page recovery plan for Monday</li>
+          <li><span className="li-check">✓</span> No follow-up unless you ask</li>
+        </ul>
 
-              <label className="field">
-                <span className="field-label">Annual revenue</span>
-                <div className="radio-row">
-                  {['£500k–£1m', '£1m–£2.5m', '£2.5m–£5m', '£5m+'].map((r) => (
-                    <button
-                      type="button"
-                      key={r}
-                      className={`radio-pill ${revenue === r ? 'active' : ''}`}
-                      onClick={() => setRevenue(r)}
-                    >
-                      {r}
-                    </button>
-                  ))}
-                </div>
-              </label>
+        <div className="cta-actions">
+          <a href="#diagnostic" className="cta-btn-primary" data-open-roadmap>
+            Book the diagnostic <span className="arr">→</span>
+          </a>
+          <a href="#diagnostic" className="cta-btn-secondary" data-open-roadmap>
+            Download the free roadmap first <span className="arr">→</span>
+          </a>
+        </div>
 
-              <button type="submit" className="cta-submit" disabled={loading}>
-                {loading ? (
-                  <><span className="btn-spinner"></span>Sending…</>
-                ) : (
-                  <>Book the diagnostic <span className="arr">→</span></>
-                )}
-              </button>
-
-              {error && (
-                <div className="form-error">
-                  Something went wrong. Email us directly at fab@calonaisolutions.com
-                </div>
-              )}
-
-              <button type="button" className="cta-soft-link" data-open-roadmap>
-                Not ready? Get the practical roadmap first <span className="arr">→</span>
-              </button>
-
-              <div className="form-footer">
-                <span>One reply within 4 hours.</span>
-                <span>·</span>
-                <span>No mailing list.</span>
-                <span>·</span>
-                <span>No automated follow-up.</span>
-              </div>
-            </form>
-          ) : (
-            <div className="cta-form success-form">
-              <div className="success-icon">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                  <circle cx="24" cy="24" r="22" stroke="currentColor" strokeWidth="1.5"/>
-                  <path d="M14 24L21 31L34 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <h3>Diagnostic booked.</h3>
-              <p>We'll reach out to <strong>{email}</strong> within 4 hours to confirm a 30–45 min slot. No deck. No pitch.</p>
-              <div className="success-meta">
-                <span>What to have ready</span>
-                <ul>
-                  <li>One workflow you suspect leaks margin</li>
-                  <li>Roughly how many jobs / month</li>
-                  <li>Whoever runs ops, if not you</li>
-                </ul>
-              </div>
-            </div>
-          )}
+        <div className="cta-footnote">
+          One reply within 4 hours · No mailing list · No automated follow-up
         </div>
       </div>
     </section>

@@ -8,6 +8,7 @@ const RoadmapModal = ({ open, onClose }) => {
   const [submitted, setSubmitted] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [sendError, setSendError] = React.useState(false);
+  const [formType, setFormType] = React.useState('Roadmap Download');
 
   React.useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -21,8 +22,7 @@ const RoadmapModal = ({ open, onClose }) => {
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
-  const submit = async (e) => {
-    e.preventDefault();
+  const doSubmit = async (type) => {
     const errs = {};
     if (!name.trim()) errs.name = 'Required';
     if (!email.trim() || !email.includes('@')) errs.email = 'Valid email required';
@@ -31,10 +31,11 @@ const RoadmapModal = ({ open, onClose }) => {
     setErrors(errs);
     if (Object.keys(errs).length) return;
     setLoading(true);
+    setFormType(type);
     setSendError(false);
     try {
       await window.sendLeadEmail({
-        form_type:  'Roadmap Download',
+        form_type:  type,
         name:       name,
         from_email: email,
         company:    company,
@@ -50,6 +51,8 @@ const RoadmapModal = ({ open, onClose }) => {
     }
     setLoading(false);
   };
+
+  const submit = (e) => { e.preventDefault(); doSubmit(formType); };
 
   const reset = () => {
     setSubmitted(false);
@@ -200,16 +203,26 @@ const RoadmapModal = ({ open, onClose }) => {
                   />
                 </div>
 
-                <a
-                  href="#diagnostic"
+                <button
+                  type="button"
                   className="modal-book-btn"
-                  onClick={(e) => { e.preventDefault(); onClose(); setTimeout(() => { const el = document.getElementById('diagnostic'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, 100); }}
+                  disabled={loading}
+                  onClick={() => doSubmit('Diagnostic Booking')}
                 >
-                  Book the diagnostic <span className="arr">→</span>
-                </a>
+                  {loading && formType === 'Diagnostic Booking' ? (
+                    <><span className="btn-spinner"></span>Sending…</>
+                  ) : (
+                    <>Book the diagnostic <span className="arr">→</span></>
+                  )}
+                </button>
 
-                <button type="submit" className="modal-submit modal-submit--secondary" disabled={loading}>
-                  {loading ? (
+                <button
+                  type="button"
+                  className="modal-submit"
+                  disabled={loading}
+                  onClick={() => doSubmit('Roadmap Download')}
+                >
+                  {loading && formType === 'Roadmap Download' ? (
                     <><span className="btn-spinner"></span>Sending…</>
                   ) : (
                     <>Download the roadmap <span className="arr">→</span></>
@@ -234,10 +247,13 @@ const RoadmapModal = ({ open, onClose }) => {
                     <path d="M16 28L24 36L40 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
-                <div className="success-eyebrow">Roadmap on its way</div>
-                <h3>Check your inbox.</h3>
+                <div className="success-eyebrow">{formType === 'Diagnostic Booking' ? 'Request received' : 'Roadmap on its way'}</div>
+                <h3>{formType === 'Diagnostic Booking' ? 'We\'ll be in touch.' : 'Check your inbox.'}</h3>
                 <p>
-                  We're sending the roadmap to <strong>{email}</strong>. As you read it, pay attention to where your business relies on manual chasing, disconnected tools, or founder oversight. That's usually where better systems pay back fastest.
+                  {formType === 'Diagnostic Booking'
+                    ? <>We'll reach out to <strong>{email}</strong> within 4 hours to confirm a 30-45 min slot. No deck. No pitch.</>
+                    : <>We're sending the roadmap to <strong>{email}</strong>. As you read it, pay attention to where your business relies on manual chasing, disconnected tools, or founder oversight.</>
+                  }
                 </p>
                 <div className="success-next">
                   <div className="success-next-eyebrow">Next step · when you're ready</div>

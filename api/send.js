@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -43,10 +43,11 @@ export default async function handler(req, res) {
     </div>`;
 
   try {
+    const apiKey = process.env.RESEND_API_KEY || 're_gprDCJhc_D1hNxNzGw72StWKXRKrLtpqR';
     const r = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${process.env.RESEND_API_KEY || 're_gprDCJhc_D1hNxNzGw72StWKXRKrLtpqR'}`,
+        Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -65,4 +66,4 @@ export default async function handler(req, res) {
     console.error('Resend error:', err.message);
     res.status(500).json({ error: err.message });
   }
-}
+};
