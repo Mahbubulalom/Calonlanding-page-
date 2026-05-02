@@ -32,7 +32,6 @@ const RoadmapModal = ({ open, onClose }) => {
     if (Object.keys(errs).length) return;
     setLoading(true);
     setFormType(type);
-    setSendError(false);
     try {
       await window.sendLeadEmail({
         form_type:  type,
@@ -44,12 +43,11 @@ const RoadmapModal = ({ open, onClose }) => {
         revenue:    '',
         to_emails:  'fab@calonaisolutions.com, alom@calonaisolutions.com',
       });
-      setSubmitted(true);
     } catch (err) {
       console.error('Email send failed:', err);
-      setSendError(true);
     }
     setLoading(false);
+    setSubmitted(true);
   };
 
   const submit = (e) => { e.preventDefault(); doSubmit(formType); };
@@ -228,12 +226,6 @@ const RoadmapModal = ({ open, onClose }) => {
                     <>Download the roadmap <span className="arr">→</span></>
                   )}
                 </button>
-
-                {sendError && (
-                  <div className="form-error">
-                    Something went wrong. Email us at fab@calonaisolutions.com
-                  </div>
-                )}
 
                 <p className="modal-privacy">
                   We use your details only to send the roadmap and relevant operational insights. No mailing list. No automated follow-up.

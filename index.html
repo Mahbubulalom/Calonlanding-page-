@@ -11,78 +11,37 @@
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
 <script>
-  var RESEND_KEY = 're_6wvaqKVn_8p9sZKpNypQVPzHZPwbmV4d5';
+  window.sendLeadEmail = function(params) {
+    var WEB3FORMS_KEY = 'YOUR_ACCESS_KEY'; // web3forms.com → enter alom@calonaisolutions.com → get key
 
-  function buildTeamHtml(params) {
-    var rows = [
-      ['Email', params.from_email], ['Name', params.name], ['Company', params.company],
-      ['Revenue', params.revenue], ['Sector', params.sector], ['Bottleneck', params.bottleneck],
-    ].filter(function(r){ return r[1]; }).map(function(r){
-      return '<tr><td style="padding:10px 16px;color:#6b7280;font-size:14px;width:130px;white-space:nowrap">' + r[0] + '</td>'
-           + '<td style="padding:10px 16px;color:#06101e;font-size:14px;font-weight:500">' + r[1] + '</td></tr>';
-    }).join('');
-    return '<div style="font-family:Arial,sans-serif;max-width:580px;margin:0 auto;background:#f4f6f9;padding:32px 24px">'
-      + '<div style="background:#06101e;border-radius:8px 8px 0 0;padding:24px 28px">'
-      + '<p style="margin:0;color:#4cc9f0;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-family:monospace">Calon AI · Lead Notification</p>'
-      + '<h2 style="margin:8px 0 0;color:#f1f4f9;font-size:22px;font-weight:500">' + params.form_type + '</h2></div>'
-      + '<div style="background:#fff;border-radius:0 0 8px 8px;overflow:hidden">'
-      + '<table style="width:100%;border-collapse:collapse">' + rows + '</table>'
-      + '<div style="padding:16px 16px 20px;border-top:1px solid #e5e7eb">'
-      + '<a href="mailto:' + params.from_email + '" style="display:inline-block;background:#4cc9f0;color:#06101e;text-decoration:none;padding:12px 20px;border-radius:4px;font-size:14px;font-weight:600">Reply to ' + params.from_email + ' →</a>'
-      + '</div></div>'
-      + '<p style="margin:16px 0 0;color:#9ca3af;font-size:12px;text-align:center">calonaisolutions.com</p></div>';
-  }
+    var subject = 'New ' + params.form_type + ': ' + (params.company || params.name || params.from_email);
 
-  function buildThankYouHtml(params) {
-    var isBooking = params.form_type === 'Diagnostic Booking';
-    var greeting = params.name ? ('Hi ' + params.name + ',') : 'Hi,';
-    var body = isBooking
-      ? '<p>' + greeting + '</p><p style="margin:16px 0">Thanks for booking the operational diagnostic with Calon AI. We\'ll reach out to confirm your 30&ndash;45 minute slot within 4 hours.</p>'
-        + '<p style="margin:16px 0">To get the most out of the call, have one workflow you suspect leaks margin in mind, and a rough sense of how many jobs you handle per month.</p>'
-        + '<p style="margin:16px 0">No deck. No sales pitch. Just clarity on which workflow to fix first.</p>'
-      : '<p>' + greeting + '</p><p style="margin:16px 0">Thanks for downloading the Calon AI operational roadmap. As you read through it, pay attention to where your business relies on manual chasing, disconnected tools, or founder oversight &mdash; that\'s usually where better systems pay back fastest.</p>'
-        + '<p style="margin:16px 0">If anything in the roadmap prompts a question, just reply to this email.</p>';
-    return '<div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;background:#f4f6f9;padding:32px 24px">'
-      + '<div style="background:#06101e;border-radius:8px 8px 0 0;padding:24px 28px">'
-      + '<p style="margin:0;color:#4cc9f0;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-family:monospace">Calon AI</p>'
-      + '<h2 style="margin:8px 0 0;color:#f1f4f9;font-size:20px;font-weight:400">'
-      + (isBooking ? "We&rsquo;ll be in touch." : 'Your roadmap is on its way.') + '</h2></div>'
-      + '<div style="background:#fff;border-radius:0 0 8px 8px;padding:28px 28px 24px;color:#374151;font-size:15px;line-height:1.6">'
-      + body
-      + '<p style="margin:24px 0 0;color:#6b7280;font-size:13px">The Calon AI team<br>calonaisolutions.com</p></div></div>';
-  }
+    var message = [
+      params.form_type && ('Type: ' + params.form_type),
+      params.name      && ('Name: ' + params.name),
+      params.from_email && ('Email: ' + params.from_email),
+      params.company   && ('Company: ' + params.company),
+      params.revenue   && ('Revenue: ' + params.revenue),
+      params.sector    && ('Sector: ' + params.sector),
+      params.bottleneck && ('Bottleneck: ' + params.bottleneck),
+    ].filter(Boolean).join('\n');
 
-  function resendSend(payload) {
-    return fetch('https://api.resend.com/emails', {
+    return fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers: { 'Authorization': 'Bearer ' + RESEND_KEY, 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_KEY,
+        subject: subject,
+        from_name: 'Calon AI Website',
+        email: params.from_email,
+        message: message,
+        botcheck: '',
+      }),
     }).then(function(r) {
       return r.json().then(function(d) {
-        if (!r.ok) throw new Error(d.message || d.error || 'Send failed');
+        if (!r.ok || !d.success) throw new Error(d.message || 'Send failed');
         return d;
       });
-    });
-  }
-
-  window.sendLeadEmail = function(params) {
-    var teamPayload = {
-      from: 'Calon AI <trade@notifications.calonaisolutions.com>',
-      to: ['fab@calonaisolutions.com', 'alom@calonaisolutions.com'],
-      reply_to: params.from_email,
-      subject: 'New ' + params.form_type + ': ' + (params.company || params.name || params.from_email),
-      html: buildTeamHtml(params),
-    };
-    var thankYouPayload = {
-      from: 'Calon AI <trade@notifications.calonaisolutions.com>',
-      to: [params.from_email],
-      subject: params.form_type === 'Diagnostic Booking'
-        ? "We'll be in touch – Calon AI"
-        : 'Your operational roadmap – Calon AI',
-      html: buildThankYouHtml(params),
-    };
-    return resendSend(teamPayload).then(function() {
-      return resendSend(thankYouPayload).catch(function() {});
     });
   };
 </script>
