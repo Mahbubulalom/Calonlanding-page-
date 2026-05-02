@@ -17,22 +17,40 @@ const Hero = ({ heroContent, show3D, bgStyle }) => {
 
           <p className="hero-lead">{heroContent.lead}</p>
 
-          <form className="lead-form" onSubmit={(e) => e.preventDefault()}>
-            <div className="form-row">
-              <input
-                type="email"
-                placeholder="founder@yourcompany.co.uk"
-                aria-label="Email"
-              />
-              <button type="submit" data-open-roadmap>
-                Book the diagnostic <span className="arr">→</span>
+          <div className="lead-form-3d-wrap">
+            <form className="lead-form lead-form-3d" onSubmit={(e) => e.preventDefault()}>
+              <div className="lead-form-label">
+                <span className="lead-form-dot"></span>
+                <span>Book your operational diagnostic</span>
+              </div>
+              <div className="form-row">
+                <input
+                  type="email"
+                  placeholder="founder@yourcompany.co.uk"
+                  aria-label="Email"
+                />
+                <button type="submit" data-open-roadmap>
+                  Book the diagnostic <span className="arr">→</span>
+                </button>
+              </div>
+              <div className="lead-form-divider"></div>
+              <button type="button" className="lead-form-roadmap-btn" data-open-roadmap>
+                <span className="roadmap-btn-icon">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <rect x="2" y="1" width="9" height="13" rx="1" stroke="currentColor" strokeWidth="1.2"/>
+                    <path d="M4 5H8M4 7.5H8M4 10H7" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                    <path d="M11 9L13.5 11.5L11 14" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </span>
+                Download the free roadmap
+                <span className="arr" style={{marginLeft: 'auto', opacity: 0.6}}>↓</span>
               </button>
-            </div>
-            <div className="form-sub">
-              <span className="check">✓</span>
-              30–45 minutes. No sales pitch. Just clarity on which workflow to fix first.
-            </div>
-          </form>
+              <div className="form-sub">
+                <span className="check">✓</span>
+                No sales pitch · No mailing list · Reply within 4 hours
+              </div>
+            </form>
+          </div>
 
           <div className="hero-stats">
             <div className="stat">
