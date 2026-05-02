@@ -10,30 +10,38 @@
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  // ─── EmailJS setup ──────────────────────────────────────────────────────────
-  // 1. Go to https://emailjs.com and create a free account
-  // 2. Email Services → Add New Service → connect your Gmail
-  // 3. Email Templates → Create Template (see README for template content)
-  // 4. Account → General → copy your Public Key
-  // Replace the three values below with your real credentials:
-  window.EJS = {
-    publicKey:   'YOUR_PUBLIC_KEY',
-    serviceId:   'YOUR_SERVICE_ID',
-    templateId:  'YOUR_TEMPLATE_ID',
-  };
-  if (window.EJS.publicKey !== 'YOUR_PUBLIC_KEY') {
-    emailjs.init({ publicKey: window.EJS.publicKey });
-  }
+  // ─── Web3Forms — sends emails to fab@ and alom@ ────────────────────────────
+  // TO ACTIVATE: go to https://web3forms.com/
+  // Enter: fab@calonaisolutions.com → click "Create Access Key"
+  // Check your inbox → copy the key → paste it below replacing YOUR_ACCESS_KEY
+  var W3F_KEY = 'YOUR_ACCESS_KEY';
 
-  // Helper used by both forms
   window.sendLeadEmail = function(params) {
-    if (window.EJS.publicKey === 'YOUR_PUBLIC_KEY') {
-      console.warn('EmailJS not configured — add your credentials to index.html');
-      return Promise.resolve({ status: 200 });
-    }
-    return emailjs.send(window.EJS.serviceId, window.EJS.templateId, params);
+    var payload = {
+      access_key:  W3F_KEY,
+      subject:     'New ' + params.form_type + ': ' + (params.company || params.name),
+      from_name:   params.company || params.name || 'Website Lead',
+      replyto:     params.from_email,
+      cc:          'alom@calonaisolutions.com',
+      'Form type':     params.form_type,
+      'Email':         params.from_email,
+      'Name':          params.name || '',
+      'Company':       params.company || '',
+      'Annual revenue': params.revenue || '',
+      'Sector':        params.sector || '',
+      'Bottleneck':    params.bottleneck || '',
+    };
+    return fetch('https://api.web3forms.com/submit', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body:    JSON.stringify(payload),
+    }).then(function(r) {
+      return r.json().then(function(data) {
+        if (!r.ok) throw new Error(data.message || 'Submission failed');
+        return data;
+      });
+    });
   };
 </script>
 </head>
