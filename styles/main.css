@@ -1634,6 +1634,37 @@ em {
   margin-top: 24px;
 }
 
+/* ================== FORM STATES ================== */
+.btn-spinner {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border: 2px solid rgba(6,16,30,0.3);
+  border-top-color: var(--bg-base);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.cta-submit:disabled,
+.modal-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.form-error {
+  background: rgba(214,100,74,0.1);
+  border: 1px solid rgba(214,100,74,0.35);
+  border-radius: 4px;
+  padding: 12px 14px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--status-alert);
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
 /* ================== ROADMAP MODAL ================== */
 .cta-soft-link {
   display: inline-flex;

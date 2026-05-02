@@ -6,6 +6,8 @@ const RoadmapModal = ({ open, onClose }) => {
   const [bottleneck, setBottleneck] = React.useState('');
   const [errors, setErrors] = React.useState({});
   const [submitted, setSubmitted] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [sendError, setSendError] = React.useState(false);
 
   React.useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -19,7 +21,7 @@ const RoadmapModal = ({ open, onClose }) => {
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     const errs = {};
     if (!name.trim()) errs.name = 'Required';
@@ -28,7 +30,25 @@ const RoadmapModal = ({ open, onClose }) => {
     if (!sector) errs.sector = 'Required';
     setErrors(errs);
     if (Object.keys(errs).length) return;
-    setSubmitted(true);
+    setLoading(true);
+    setSendError(false);
+    try {
+      await window.sendLeadEmail({
+        form_type:  'Roadmap Download',
+        name:       name,
+        from_email: email,
+        company:    company,
+        sector:     sector,
+        bottleneck: bottleneck || 'Not provided',
+        revenue:    '',
+        to_emails:  'fab@calonaisolutions.com, alom@calonaisolutions.com',
+      });
+      setSubmitted(true);
+    } catch (err) {
+      console.error('Email send failed:', err);
+      setSendError(true);
+    }
+    setLoading(false);
   };
 
   const reset = () => {
@@ -180,9 +200,19 @@ const RoadmapModal = ({ open, onClose }) => {
                   />
                 </div>
 
-                <button type="submit" className="modal-submit">
-                  Download the roadmap <span className="arr">→</span>
+                <button type="submit" className="modal-submit" disabled={loading}>
+                  {loading ? (
+                    <><span className="btn-spinner"></span>Sending…</>
+                  ) : (
+                    <>Download the roadmap <span className="arr">→</span></>
+                  )}
                 </button>
+
+                {sendError && (
+                  <div className="form-error">
+                    Something went wrong. Email us at fab@calonaisolutions.com
+                  </div>
+                )}
 
                 <p className="modal-privacy">
                   We use your details only to send the roadmap and relevant operational insights. No mailing list. No automated follow-up.

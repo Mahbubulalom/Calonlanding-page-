@@ -101,11 +101,31 @@ const CTA = () => {
   const [company, setCompany] = React.useState('');
   const [revenue, setRevenue] = React.useState('');
   const [submitted, setSubmitted] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(false);
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    if (!email) return;
-    setSubmitted(true);
+    if (!email || !company) return;
+    setLoading(true);
+    setError(false);
+    try {
+      await window.sendLeadEmail({
+        form_type:    'Diagnostic Booking',
+        from_email:   email,
+        company:      company,
+        revenue:      revenue || 'Not specified',
+        name:         '',
+        sector:       '',
+        bottleneck:   '',
+        to_emails:    'fab@calonaisolutions.com, alom@calonaisolutions.com',
+      });
+      setSubmitted(true);
+    } catch (err) {
+      console.error('Email send failed:', err);
+      setError(true);
+    }
+    setLoading(false);
   };
 
   return (
@@ -182,9 +202,19 @@ const CTA = () => {
                 </div>
               </label>
 
-              <button type="submit" className="cta-submit">
-                Book the diagnostic <span className="arr">→</span>
+              <button type="submit" className="cta-submit" disabled={loading}>
+                {loading ? (
+                  <><span className="btn-spinner"></span>Sending…</>
+                ) : (
+                  <>Book the diagnostic <span className="arr">→</span></>
+                )}
               </button>
+
+              {error && (
+                <div className="form-error">
+                  Something went wrong. Email us directly at fab@calonaisolutions.com
+                </div>
+              )}
 
               <button type="button" className="cta-soft-link" data-open-roadmap>
                 Not ready? Get the practical roadmap first <span className="arr">→</span>

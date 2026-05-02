@@ -10,6 +10,32 @@
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  // ─── EmailJS setup ──────────────────────────────────────────────────────────
+  // 1. Go to https://emailjs.com and create a free account
+  // 2. Email Services → Add New Service → connect your Gmail
+  // 3. Email Templates → Create Template (see README for template content)
+  // 4. Account → General → copy your Public Key
+  // Replace the three values below with your real credentials:
+  window.EJS = {
+    publicKey:   'YOUR_PUBLIC_KEY',
+    serviceId:   'YOUR_SERVICE_ID',
+    templateId:  'YOUR_TEMPLATE_ID',
+  };
+  if (window.EJS.publicKey !== 'YOUR_PUBLIC_KEY') {
+    emailjs.init({ publicKey: window.EJS.publicKey });
+  }
+
+  // Helper used by both forms
+  window.sendLeadEmail = function(params) {
+    if (window.EJS.publicKey === 'YOUR_PUBLIC_KEY') {
+      console.warn('EmailJS not configured — add your credentials to index.html');
+      return Promise.resolve({ status: 200 });
+    }
+    return emailjs.send(window.EJS.serviceId, window.EJS.templateId, params);
+  };
+</script>
 </head>
 <body>
 <div id="root"></div>
