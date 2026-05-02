@@ -11,34 +11,15 @@
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
 <script>
-  // ─── Web3Forms — sends emails to fab@ and alom@ ────────────────────────────
-  // TO ACTIVATE: go to https://web3forms.com/
-  // Enter: fab@calonaisolutions.com → click "Create Access Key"
-  // Check your inbox → copy the key → paste it below replacing YOUR_ACCESS_KEY
-  var W3F_KEY = 'YOUR_ACCESS_KEY';
-
+  // Sends lead data to /api/send → Resend → fab@ + alom@
   window.sendLeadEmail = function(params) {
-    var payload = {
-      access_key:  W3F_KEY,
-      subject:     'New ' + params.form_type + ': ' + (params.company || params.name),
-      from_name:   params.company || params.name || 'Website Lead',
-      replyto:     params.from_email,
-      cc:          'alom@calonaisolutions.com',
-      'Form type':     params.form_type,
-      'Email':         params.from_email,
-      'Name':          params.name || '',
-      'Company':       params.company || '',
-      'Annual revenue': params.revenue || '',
-      'Sector':        params.sector || '',
-      'Bottleneck':    params.bottleneck || '',
-    };
-    return fetch('https://api.web3forms.com/submit', {
+    return fetch('/api/send', {
       method:  'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body:    JSON.stringify(payload),
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(params),
     }).then(function(r) {
       return r.json().then(function(data) {
-        if (!r.ok) throw new Error(data.message || 'Submission failed');
+        if (!r.ok) throw new Error(data.error || 'Send failed');
         return data;
       });
     });
