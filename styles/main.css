@@ -1962,14 +1962,14 @@ em {
 }
 .sector-pick:hover { border-color: var(--border-strong); color: var(--text-primary); }
 .sector-pick.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
-.modal-submit {
+.modal-book-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   background: var(--accent);
   color: var(--bg-base);
-  border: 0;
+  text-decoration: none;
   border-radius: 4px;
   padding: 16px 22px;
   font-size: 14px;
@@ -1978,8 +1978,28 @@ em {
   margin-top: 6px;
   transition: all 160ms var(--ease-std);
   box-shadow: 0 4px 12px rgba(76,201,240,0.2);
+  width: 100%;
+  cursor: pointer;
 }
-.modal-submit:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(76,201,240,0.3); }
+.modal-book-btn:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(76,201,240,0.3); }
+.modal-book-btn .arr { font-family: var(--font-mono); font-weight: 400; }
+.modal-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  padding: 14px 22px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  margin-top: 6px;
+  transition: all 160ms var(--ease-std);
+}
+.modal-submit:hover { border-color: var(--border-strong); color: var(--text-primary); transform: translateY(-1px); }
 .modal-submit .arr { font-family: var(--font-mono); font-weight: 400; }
 .modal-privacy {
   font-size: 11px;

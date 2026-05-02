@@ -200,7 +200,15 @@ const RoadmapModal = ({ open, onClose }) => {
                   />
                 </div>
 
-                <button type="submit" className="modal-submit" disabled={loading}>
+                <a
+                  href="#diagnostic"
+                  className="modal-book-btn"
+                  onClick={(e) => { e.preventDefault(); onClose(); setTimeout(() => { const el = document.getElementById('diagnostic'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, 100); }}
+                >
+                  Book the diagnostic <span className="arr">→</span>
+                </a>
+
+                <button type="submit" className="modal-submit modal-submit--secondary" disabled={loading}>
                   {loading ? (
                     <><span className="btn-spinner"></span>Sending…</>
                   ) : (
