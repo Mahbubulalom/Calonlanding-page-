@@ -43,7 +43,7 @@ const Problem = () => {
           <div className="problem-card">
             <div className="problem-card-head">
               <span className="problem-num">Stage 01</span>
-              <span className="problem-tag">— £24k / yr</span>
+              <span className="problem-tag">£24k / yr</span>
             </div>
             <h3 className="problem-h3">Before the job</h3>
             <p className="problem-quote">
@@ -60,7 +60,7 @@ const Problem = () => {
             <div className="pin-tag">most leak</div>
             <div className="problem-card-head">
               <span className="problem-num">Stage 02</span>
-              <span className="problem-tag">— £42k / yr</span>
+              <span className="problem-tag">£42k / yr</span>
             </div>
             <h3 className="problem-h3">During the job</h3>
             <p className="problem-quote">
@@ -76,7 +76,7 @@ const Problem = () => {
           <div className="problem-card">
             <div className="problem-card-head">
               <span className="problem-num">Stage 03</span>
-              <span className="problem-tag">— £18k / yr</span>
+              <span className="problem-tag">£18k / yr</span>
             </div>
             <h3 className="problem-h3">After the job</h3>
             <p className="problem-quote">
@@ -94,7 +94,7 @@ const Problem = () => {
           <div className="leak-callout-num">40–60%</div>
           <div className="leak-callout-body">
             <h4>of gross margin leaks operationally on a £500k business.</h4>
-            <p>Most of it is preventable through systems, not harder work. The question isn't <em>whether</em> — it's <em>which workflow</em> to fix first.</p>
+            <p>Most of it is preventable through systems, not harder work. The question isn't <em>whether</em>, it's <em>which workflow</em> to fix first.</p>
           </div>
         </div>
       </div>

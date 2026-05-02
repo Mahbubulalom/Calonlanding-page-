@@ -14,7 +14,7 @@ const Solution = () => {
 
         <div className="process-3d">
           {[
-            { n: '01', title: 'Diagnose', body: 'Map the actual workflow — not how it should work, how it does. 30–45 minutes, founder + ops lead.', out: 'Workflow map · 6 stages' },
+            { n: '01', title: 'Diagnose', body: 'Map the actual workflow, not how it should work, how it does. 30–45 minutes, founder + ops lead.', out: 'Workflow map · 6 stages' },
             { n: '02', title: 'Identify', body: 'Name the biggest leak. Specific to the business, not generic advice. Quantified in £.', out: 'Leak ledger · ranked' },
             { n: '03', title: 'Build', body: 'Design the system. Workflow, handover doc, automation, dashboard. Around your team, not over it.', out: 'Operating system · live' },
             { n: '04', title: 'Operate', body: 'Trained, documented, owned by your operator. Margin recovery measured monthly.', out: 'Founder handover · signed' },
@@ -59,7 +59,7 @@ const Solution = () => {
             ))}
             <div className="compare-row total-row">
               <div className="compare-label">Recovered margin / year</div>
-              <div className="now-col">—</div>
+              <div className="now-col">N/A</div>
               <div className="with-col total-val">£82,000 avg.</div>
             </div>
           </div>

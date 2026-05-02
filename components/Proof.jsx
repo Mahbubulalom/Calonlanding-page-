@@ -57,7 +57,7 @@ const Proof = () => {
               <span className="case-meta">32 engineers</span>
             </div>
             <p className="case-quote">
-              "We didn't know which jobs made money. Now we do — and we've stopped doing the ones that don't."
+              "We didn't know which jobs made money. Now we do. And we've stopped doing the ones that don't."
             </p>
             <div className="case-stats">
               <div className="case-stat">
@@ -77,7 +77,7 @@ const Proof = () => {
               <span className="case-meta">3 venues</span>
             </div>
             <p className="case-quote">
-              "Bookings used to live in five places. Now they live in one — and we can see who's coming back."
+              "Bookings used to live in five places. Now they live in one, and we can see who's coming back."
             </p>
             <div className="case-stats">
               <div className="case-stat">
@@ -123,10 +123,10 @@ const CTA = () => {
             Now decide which workflow to <em>fix first.</em>
           </h2>
           <p className="cta-lead">
-            30 to 45 minutes. No deck, no sales pitch. We map your workflow, name the biggest leak, and put a number on it. You leave with a one-page diagnostic — whether or not we ever work together.
+            30 to 45 minutes. No deck, no sales pitch. We map your workflow, name the biggest leak, and put a number on it. You leave with a one-page diagnostic, whether or not we ever work together.
           </p>
           <ul className="cta-list">
-            <li><span className="li-check">✓</span> A live workflow map of your business — six stages</li>
+            <li><span className="li-check">✓</span> A live workflow map of your business, six stages</li>
             <li><span className="li-check">✓</span> The single highest-leakage workflow, quantified in £</li>
             <li><span className="li-check">✓</span> A one-page recovery plan you can act on Monday</li>
             <li><span className="li-check">✓</span> No follow-up unless you ask for one</li>

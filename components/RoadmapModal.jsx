@@ -61,14 +61,14 @@ const RoadmapModal = ({ open, onClose }) => {
             </h2>
 
             <p className="modal-lead">
-              A practical guide for founder-led service businesses — where operational friction actually comes from, which workflows to fix first, and where AI or automation creates real commercial value.
+              A practical guide for founder-led service businesses. Where operational friction actually comes from, which workflows to fix first, and where AI or automation creates real commercial value.
             </p>
 
             <div className="modal-benefits">
               <div className="benefits-eyebrow">Inside the roadmap</div>
               <ul>
                 <li><span className="check">✓</span>Spot the operational bottlenecks most service businesses miss</li>
-                <li><span className="check">✓</span>Understand where automation is useful — and where it isn't</li>
+                <li><span className="check">✓</span>Understand where automation is useful, and where it isn't</li>
                 <li><span className="check">✓</span>Identify follow-up, quoting, handover, scheduling, and reporting leakage</li>
                 <li><span className="check">✓</span>Prioritise the first workflow worth fixing</li>
                 <li><span className="check">✓</span>Avoid wasting money on software that doesn't connect to how your business works</li>
@@ -173,7 +173,7 @@ const RoadmapModal = ({ open, onClose }) => {
                 <div className="m-field">
                   <label>Biggest operational bottleneck right now?<span className="opt">optional</span></label>
                   <textarea
-                    placeholder="Helps us tailor the roadmap to your sector — one or two lines is enough."
+                    placeholder="Helps us tailor the roadmap to your sector, one or two lines is enough."
                     value={bottleneck}
                     onChange={(e) => setBottleneck(e.target.value)}
                     rows={3}
@@ -199,7 +199,7 @@ const RoadmapModal = ({ open, onClose }) => {
                 <div className="success-eyebrow">Roadmap on its way</div>
                 <h3>Check your inbox.</h3>
                 <p>
-                  We're sending the roadmap to <strong>{email}</strong>. As you read it, pay attention to where your business relies on manual chasing, disconnected tools, or founder oversight — that's usually where better systems pay back fastest.
+                  We're sending the roadmap to <strong>{email}</strong>. As you read it, pay attention to where your business relies on manual chasing, disconnected tools, or founder oversight. That's usually where better systems pay back fastest.
                 </p>
                 <div className="success-next">
                   <div className="success-next-eyebrow">Next step · when you're ready</div>

@@ -102,7 +102,7 @@ const DiagnosticStack = () => {
           <div className="rail-step">
             <div className="rail-dot active"></div>
             <div className="rail-label">Handover</div>
-            <div className="rail-leak">— 30 min lost</div>
+            <div className="rail-leak">30 min lost</div>
           </div>
           <div className="rail-line dim"></div>
           <div className="rail-step dim">
