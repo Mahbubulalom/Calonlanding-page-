@@ -51,7 +51,7 @@ module.exports = async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from:     'Calon AI <trade@calonaisolutions.com>',
+        from:     'Calon AI <trade@notifications.calonaisolutions.com>',
         to:       ['fab@calonaisolutions.com', 'alom@calonaisolutions.com'],
         reply_to: from_email,
         subject:  `New ${form_type}: ${company || name || from_email}`,

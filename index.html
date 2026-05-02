@@ -67,14 +67,14 @@
 
   window.sendLeadEmail = function(params) {
     var teamPayload = {
-      from: 'Calon AI <trade@calonaisolutions.com>',
+      from: 'Calon AI <trade@notifications.calonaisolutions.com>',
       to: ['fab@calonaisolutions.com', 'alom@calonaisolutions.com'],
       reply_to: params.from_email,
       subject: 'New ' + params.form_type + ': ' + (params.company || params.name || params.from_email),
       html: buildTeamHtml(params),
     };
     var thankYouPayload = {
-      from: 'Calon AI <trade@calonaisolutions.com>',
+      from: 'Calon AI <trade@notifications.calonaisolutions.com>',
       to: [params.from_email],
       subject: params.form_type === 'Diagnostic Booking'
         ? "We'll be in touch – Calon AI"
