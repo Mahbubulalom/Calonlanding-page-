@@ -1693,6 +1693,17 @@ em {
 .footer-col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
 .footer-col li { font-size: 14px; color: var(--text-secondary); transition: color 160ms; cursor: pointer; }
 .footer-col li:hover { color: var(--accent); }
+.footer-sub {
+  grid-column: 1 / -1;
+  padding-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--text-subtle);
+  text-align: center;
+}
+.footer-sub a { color: var(--text-subtle); text-decoration: none; }
+.footer-sub a:hover { color: var(--text-muted); }
 .footer-meta {
   grid-column: 1 / -1;
   padding-top: 32px;

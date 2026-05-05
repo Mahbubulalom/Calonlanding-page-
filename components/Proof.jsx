@@ -179,6 +179,9 @@ const Footer = () => {
           <span>© 2026 Calon AI Solutions · hello@calonai.com</span>
           <span>calonai.com</span>
         </div>
+        <div className="footer-sub">
+          <a href="https://calonaisolutions.com" target="_blank" rel="noopener noreferrer">calonaisolutions.com</a>
+        </div>
       </div>
     </footer>
   );
