@@ -180,7 +180,7 @@ const Footer = () => {
           <span>calonai.com</span>
         </div>
         <div className="footer-sub">
-          <a href="https://calonaisolutions.com" target="_blank" rel="noopener noreferrer">calonaisolutions.com</a>
+          Also visit · <a href="https://calonaisolutions.com" target="_blank" rel="noopener noreferrer">calonaisolutions.com</a>
         </div>
       </div>
     </footer>

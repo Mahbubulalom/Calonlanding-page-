@@ -1695,15 +1695,15 @@ em {
 .footer-col li:hover { color: var(--accent); }
 .footer-sub {
   grid-column: 1 / -1;
-  padding-top: 12px;
+  padding-top: 16px;
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  color: var(--text-subtle);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
   text-align: center;
 }
-.footer-sub a { color: var(--text-subtle); text-decoration: none; }
-.footer-sub a:hover { color: var(--text-muted); }
+.footer-sub a { color: var(--accent); text-decoration: none; opacity: 0.7; }
+.footer-sub a:hover { opacity: 1; }
 .footer-meta {
   grid-column: 1 / -1;
   padding-top: 32px;
